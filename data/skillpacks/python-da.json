@@ -1,0 +1,384 @@
+{
+  "id": "python-da",
+  "name": "Python 数据分析入门",
+  "totalWeeks": 12,
+  "minutesPerDay": 25,
+  "weeks": [
+    {
+      "week": 1,
+      "focus": "环境与第一个程序",
+      "topics": [
+        { "id": "py-env-setup", "name": "安装与环境配置" },
+        { "id": "py-repl", "name": "交互式解释器" },
+        { "id": "py-run-script", "name": "运行脚本文件" },
+        { "id": "py-error-basics", "name": "读懂第一份报错" }
+      ],
+      "dailyTemplates": [
+        { "title": "打开 python.org 点 Downloads 下载安装包", "minutes": 2, "granularity": 2 },
+        { "title": "双击安装,勾选 Add to PATH 再 Install", "minutes": 5, "granularity": 5 },
+        { "title": "终端输入 python --version 看版本号", "minutes": 2, "granularity": 2 },
+        { "title": "终端输入 python 进入交互环境", "minutes": 2, "granularity": 2 },
+        { "title": "在提示符后输入 1+1 回车", "minutes": 2, "granularity": 2 },
+        { "title": "输入 print('hello') 看第一行输出", "minutes": 2, "granularity": 2 },
+        { "title": "print 名字和一句自我介绍", "minutes": 5, "granularity": 5 },
+        { "title": "输入 exit() 退出并截图打卡", "minutes": 5, "granularity": 5 },
+        { "title": "故意输 prnt('hi') 看红色报错", "minutes": 5, "granularity": 5 },
+        { "title": "抄下报错最后一行的错误类型到笔记", "minutes": 5, "granularity": 5 },
+        { "title": "修正拼写重跑,体会报错-修复循环", "minutes": 5, "granularity": 5 },
+        { "title": "REPL 里做 5 道算术:加减乘除乘方", "minutes": 10, "granularity": 10 },
+        { "title": "下载并安装 VS Code", "minutes": 10, "granularity": 10 },
+        { "title": "扩展市场安装官方 Python 扩展", "minutes": 5, "granularity": 5 },
+        { "title": "新建 hello.py 写 print('hello') 并保存", "minutes": 10, "granularity": 10 },
+        { "title": "点运行按钮跑 hello.py 看输出", "minutes": 5, "granularity": 5 },
+        { "title": "改成打印三行自我介绍再跑", "minutes": 5, "granularity": 5 },
+        { "title": "加一行注释:# 我的第一个程序", "minutes": 5, "granularity": 5 },
+        { "title": "再跑一次,确认注释不影响输出", "minutes": 5, "granularity": 5 },
+        { "title": "用 Ctrl+` 唤出 VS Code 集成终端", "minutes": 5, "granularity": 5 },
+        { "title": "REPL 里拼接 '你好,' + 名字", "minutes": 5, "granularity": 5 },
+        { "title": "用 'hi' * 20 打印一行分隔线", "minutes": 5, "granularity": 5 },
+        { "title": "照官方文档再仿写 2 个 print 示例", "minutes": 10, "granularity": 10 },
+        { "title": "挑战:用 3 行 print 画字符画小猫", "minutes": 5, "granularity": 5 },
+        { "title": "新建 learn-python/day01.py", "minutes": 5, "granularity": 5 },
+        { "title": "把本周代码整理进 day01.py 并跑通", "minutes": 10, "granularity": 10 },
+        { "title": "认识 VS Code 终端/输出/问题三个面板", "minutes": 10, "granularity": 10 },
+        { "title": "写下本周最自豪的 1 个瞬间", "minutes": 5, "granularity": 5 },
+        { "title": "笔记整理成 day01-day06 存档", "minutes": 5, "granularity": 5 },
+        { "title": "REPL 重做本周最难的报错题", "minutes": 5, "granularity": 5 },
+        { "title": "核对本周估时与实际用时偏差", "minutes": 5, "granularity": 5 },
+        { "title": "打卡:给下周写一句执行意图", "minutes": 5, "granularity": 5 }
+      ]
+    },
+    {
+      "week": 2,
+      "focus": "基础语法:变量、字符串与流程控制",
+      "topics": [
+        { "id": "py-variables", "name": "变量与类型" },
+        { "id": "py-string-format", "name": "字符串与 f-string" },
+        { "id": "py-io-input", "name": "输入输出" },
+        { "id": "py-conditionals", "name": "条件判断" },
+        { "id": "py-loops", "name": "循环" }
+      ],
+      "dailyTemplates": [
+        { "title": "新建 week2/vars.py 文件", "minutes": 2, "granularity": 2 },
+        { "title": "写 name = 'Alex' 并打印", "minutes": 2, "granularity": 2 },
+        { "title": "age = 25,打印『Alex 今年 25 岁』", "minutes": 2, "granularity": 2 },
+        { "title": "改 age 为 26 再跑一遍", "minutes": 2, "granularity": 2 },
+        { "title": "type() 查看 name 与 age 的类型", "minutes": 2, "granularity": 2 },
+        { "title": "试验 '25' 与 25 的区别并记录", "minutes": 5, "granularity": 5 },
+        { "title": "练 int()/str() 各 2 次类型转换", "minutes": 5, "granularity": 5 },
+        { "title": "跑通 vars.py 并打卡", "minutes": 5, "granularity": 5 },
+        { "title": "用 + 拼一句问候并打印", "minutes": 5, "granularity": 5 },
+        { "title": "把拼接改写成 f-string 版本对比", "minutes": 5, "granularity": 5 },
+        { "title": "len() 打印名字长度", "minutes": 5, "granularity": 5 },
+        { "title": "练 6 个 f-string:保留2位小数等", "minutes": 10, "granularity": 10 },
+        { "title": "用 input() 读名字打印问候", "minutes": 10, "granularity": 10 },
+        { "title": "写 greet.py:输入名字输出三行欢迎", "minutes": 10, "granularity": 10 },
+        { "title": "int(input()) 读数字翻倍输出", "minutes": 5, "granularity": 5 },
+        { "title": "写 if age >= 18 打印成年", "minutes": 5, "granularity": 5 },
+        { "title": "加 else 分支打印未成年提示", "minutes": 5, "granularity": 5 },
+        { "title": "用 elif 写 A/B/C 成绩等级", "minutes": 5, "granularity": 5 },
+        { "title": "对比 == 与 = 的区别并记笔记", "minutes": 5, "granularity": 5 },
+        { "title": "写一个奇偶数判断小程序", "minutes": 5, "granularity": 5 },
+        { "title": "for i in range(5) 打印 i", "minutes": 5, "granularity": 5 },
+        { "title": "循环打印 5 行『第 N 天打卡』", "minutes": 5, "granularity": 5 },
+        { "title": "while 循数到 10 再退出", "minutes": 5, "granularity": 5 },
+        { "title": "循环+条件打印 1-20 中的偶数", "minutes": 10, "granularity": 10 },
+        { "title": "写猜数字:提示大了/小了", "minutes": 10, "granularity": 10 },
+        { "title": "给猜数字加『猜对恭喜』分支", "minutes": 10, "granularity": 10 },
+        { "title": "试玩 3 轮并修 1 个 bug", "minutes": 5, "granularity": 5 },
+        { "title": "重做本周错最多的 1 道练习", "minutes": 5, "granularity": 5 },
+        { "title": "用自己的话写 if/for 各一句话", "minutes": 5, "granularity": 5 },
+        { "title": "整理 week2 代码到统一文件夹", "minutes": 5, "granularity": 5 },
+        { "title": "核对本周估时偏差", "minutes": 5, "granularity": 5 },
+        { "title": "打卡并写下周一执行意图", "minutes": 5, "granularity": 5 }
+      ]
+    },
+    {
+      "week": 3,
+      "focus": "函数与数据结构",
+      "topics": [
+        { "id": "py-functions", "name": "函数定义与调用" },
+        { "id": "py-lists", "name": "列表" },
+        { "id": "py-dicts", "name": "字典" },
+        { "id": "py-tuples-sets", "name": "元组与集合" }
+      ],
+      "dailyTemplates": [
+        { "title": "新建 lists.py,定义 scores = [88, 92, 79]", "minutes": 5, "granularity": 5 },
+        { "title": "用 append 添加两个成绩再打印", "minutes": 10, "granularity": 10 },
+        { "title": "for 遍历打印每个成绩", "minutes": 10, "granularity": 10 },
+        { "title": "对 scores 用 sort/max/min 并打印", "minutes": 10, "granularity": 10 },
+        { "title": "切片取前 3 个与最后 2 个元素", "minutes": 15, "granularity": 15 },
+        { "title": "定义 student = {'name': 'Alex', 'age': 25}", "minutes": 10, "granularity": 10 },
+        { "title": "字典增改查:加 score、改 age、用 get 取值", "minutes": 15, "granularity": 15 },
+        { "title": "定义元组 point = (3, 4) 并解包", "minutes": 5, "granularity": 5 },
+        { "title": "用 set() 给列表去重并打印", "minutes": 5, "granularity": 5 },
+        { "title": "两个集合求交集:共同好友", "minutes": 15, "granularity": 15 },
+        { "title": "def greet(name) 返回问候字符串", "minutes": 10, "granularity": 10 },
+        { "title": "写带默认参数与返回值的 bmi 函数", "minutes": 15, "granularity": 15 },
+        { "title": "写 top_score(scores) 返回最高分", "minutes": 10, "granularity": 10 },
+        { "title": "字典存 3 名学生,循环打印成绩单", "minutes": 15, "granularity": 15 },
+        { "title": "重构本周 1 个函数让它更清晰", "minutes": 5, "granularity": 5 },
+        { "title": "笔记:列表/字典/元组/集合一句话对比", "minutes": 10, "granularity": 10 },
+        { "title": "打卡:记录估时偏差与卡点", "minutes": 10, "granularity": 10 }
+      ]
+    },
+    {
+      "week": 4,
+      "focus": "文件与异常处理",
+      "topics": [
+        { "id": "py-file-io", "name": "文件读写" },
+        { "id": "py-exceptions", "name": "异常处理" },
+        { "id": "py-modules-import", "name": "模块与导入" }
+      ],
+      "dailyTemplates": [
+        { "title": "新建 notes.txt 写入 3 行并保存", "minutes": 5, "granularity": 5 },
+        { "title": "with open() 读出全文并打印", "minutes": 10, "granularity": 10 },
+        { "title": "逐行读取并加行号打印", "minutes": 10, "granularity": 10 },
+        { "title": "追加模式 'a' 写入今日打卡", "minutes": 10, "granularity": 10 },
+        { "title": "读文件统计行数与字符数", "minutes": 15, "granularity": 15 },
+        { "title": "try/except 捕获除零错误", "minutes": 10, "granularity": 10 },
+        { "title": "给读文件代码加文件不存在处理", "minutes": 15, "granularity": 15 },
+        { "title": "写 safe_divide(a, b):出错返回 None", "minutes": 5, "granularity": 5 },
+        { "title": "捕获 int(input()) 的 ValueError", "minutes": 5, "granularity": 5 },
+        { "title": "raise 抛一个带提示的自定义异常", "minutes": 15, "granularity": 15 },
+        { "title": "import math 用 sqrt() 算 3 个数", "minutes": 10, "granularity": 10 },
+        { "title": "from datetime import date 打印今天", "minutes": 15, "granularity": 15 },
+        { "title": "pip install 一个包并 import 试跑", "minutes": 10, "granularity": 10 },
+        { "title": "小工具:记账本(写入+读取+防崩)", "minutes": 15, "granularity": 15 },
+        { "title": "整理 week4 代码与笔记归档", "minutes": 5, "granularity": 5 },
+        { "title": "重做本周最难的异常题一遍", "minutes": 10, "granularity": 10 },
+        { "title": "打卡记录估时偏差", "minutes": 10, "granularity": 10 }
+      ]
+    },
+    {
+      "week": 5,
+      "focus": "NumPy 数组基础",
+      "topics": [
+        { "id": "np-array-create", "name": "数组创建" },
+        { "id": "np-index-slice", "name": "索引与切片" },
+        { "id": "np-operations", "name": "数组运算与广播" },
+        { "id": "np-aggregations", "name": "聚合统计" }
+      ],
+      "dailyTemplates": [
+        { "title": "pip install numpy 并打印版本号", "minutes": 5, "granularity": 5 },
+        { "title": "列表转 np.array,打印 shape 与 dtype", "minutes": 10, "granularity": 10 },
+        { "title": "np.arange 与 np.zeros 各造一个数组", "minutes": 10, "granularity": 10 },
+        { "title": "索引取第 1 个/最后元素+布尔筛选", "minutes": 10, "granularity": 10 },
+        { "title": "切片:前 5 个与每隔 2 个取一次", "minutes": 15, "granularity": 15 },
+        { "title": "数组全体 ×2、两个数组相加", "minutes": 10, "granularity": 10 },
+        { "title": "广播:二维数组减去每列均值", "minutes": 15, "granularity": 15 },
+        { "title": "np.random.seed(42) 造 10 个随机数", "minutes": 5, "granularity": 5 },
+        { "title": "求均值/中位数/标准差并打印", "minutes": 5, "granularity": 5 },
+        { "title": "sum(axis=0/1) 按轴求和练习", "minutes": 15, "granularity": 15 },
+        { "title": "np.where 把不及格分数改成 0", "minutes": 10, "granularity": 10 },
+        { "title": "argsort 给成绩排名并输出名次", "minutes": 15, "granularity": 15 },
+        { "title": "模拟 50 人成绩,用 NumPy 算及格率", "minutes": 10, "granularity": 10 },
+        { "title": "同一统计:列表循环 vs NumPy 对比", "minutes": 15, "granularity": 15 },
+        { "title": "笔记:array 与 list 三点区别", "minutes": 5, "granularity": 5 },
+        { "title": "重做本周 1 道聚合题", "minutes": 10, "granularity": 10 },
+        { "title": "打卡复盘卡点", "minutes": 10, "granularity": 10 }
+      ]
+    },
+    {
+      "week": 6,
+      "focus": "Pandas 入门与数据清洗",
+      "topics": [
+        { "id": "pd-dataframe-basics", "name": "Series 与 DataFrame" },
+        { "id": "pd-read-data", "name": "读取数据" },
+        { "id": "pd-missing-values", "name": "缺失值处理" },
+        { "id": "pd-dtype-clean", "name": "类型与列清理" }
+      ],
+      "dailyTemplates": [
+        { "title": "pip install pandas 并 import 为 pd", "minutes": 5, "granularity": 5 },
+        { "title": "pd.read_csv 读入 titanic.csv", "minutes": 10, "granularity": 10 },
+        { "title": "df.shape 与 df.columns 认识数据结构", "minutes": 10, "granularity": 10 },
+        { "title": "df.info() 找出缺失列与 dtype", "minutes": 10, "granularity": 10 },
+        { "title": "isna().sum() 统计每列缺失数", "minutes": 15, "granularity": 15 },
+        { "title": "dropna 删 Age 缺失行,看形状变化", "minutes": 10, "granularity": 10 },
+        { "title": "中位数填 Age、'U' 填 Embarked", "minutes": 15, "granularity": 15 },
+        { "title": "用 head() 查看 titanic 前 5 行", "minutes": 5, "granularity": 5 },
+        { "title": "astype 把 Sex 列转成 category", "minutes": 5, "granularity": 5 },
+        { "title": "value_counts 统计各舱位人数", "minutes": 15, "granularity": 15 },
+        { "title": "rename 把关键列名改成中文", "minutes": 10, "granularity": 10 },
+        { "title": "drop 删掉 Cabin/PassengerId 两列", "minutes": 15, "granularity": 15 },
+        { "title": "duplicated 检查并去除重复行", "minutes": 10, "granularity": 10 },
+        { "title": "保存为 titanic_clean.csv 并验证", "minutes": 15, "granularity": 15 },
+        { "title": "笔记:缺失值三种处理时机", "minutes": 5, "granularity": 5 },
+        { "title": "重跑清洗脚本,核对行数一致", "minutes": 10, "granularity": 10 },
+        { "title": "打卡复盘", "minutes": 10, "granularity": 10 }
+      ]
+    },
+    {
+      "week": 7,
+      "focus": "Pandas 数据分析",
+      "topics": [
+        { "id": "pd-filter-query", "name": "筛选与查询" },
+        { "id": "pd-groupby", "name": "分组聚合" },
+        { "id": "pd-pivot-table", "name": "透视与交叉表" },
+        { "id": "pd-feature-derive", "name": "特征派生新列" }
+      ],
+      "dailyTemplates": [
+        { "title": "describe() 看数值列概览", "minutes": 5, "granularity": 5 },
+        { "title": "布尔筛选:女性且存活的乘客", "minutes": 10, "granularity": 10 },
+        { "title": "query('Pclass == 1 & Age > 30') 练习", "minutes": 10, "granularity": 10 },
+        { "title": "groupby('Pclass') 求各舱平均票价", "minutes": 10, "granularity": 10 },
+        { "title": "双键分组:舱位×性别存活率", "minutes": 15, "granularity": 15 },
+        { "title": "sort_values 找票价前 10 乘客", "minutes": 10, "granularity": 10 },
+        { "title": "agg 一次算均值/最大/计数", "minutes": 15, "granularity": 15 },
+        { "title": "用 loc 取指定行列的值", "minutes": 5, "granularity": 5 },
+        { "title": "crosstab 性别×存活交叉表", "minutes": 5, "granularity": 5 },
+        { "title": "pivot_table 均龄:舱位×登船港", "minutes": 15, "granularity": 15 },
+        { "title": "新列 FamilySize = SibSp + Parch + 1", "minutes": 10, "granularity": 10 },
+        { "title": "分析家庭大小与存活率关系", "minutes": 15, "granularity": 15 },
+        { "title": "写下并回答 3 个分析问题", "minutes": 10, "granularity": 10 },
+        { "title": "汇总发现写入 findings.md", "minutes": 15, "granularity": 15 },
+        { "title": "笔记:groupby 一句话心智模型", "minutes": 5, "granularity": 5 },
+        { "title": "重做 1 道 groupby 题", "minutes": 10, "granularity": 10 },
+        { "title": "打卡复盘", "minutes": 10, "granularity": 10 }
+      ]
+    },
+    {
+      "week": 8,
+      "focus": "Matplotlib 可视化",
+      "topics": [
+        { "id": "plt-basics", "name": "图形基础" },
+        { "id": "plt-bar-hist", "name": "柱状图与直方图" },
+        { "id": "plt-line-scatter", "name": "折线与散点" },
+        { "id": "plt-style-annotate", "name": "样式与标注" }
+      ],
+      "dailyTemplates": [
+        { "title": "pip install matplotlib 并 import pyplot", "minutes": 5, "granularity": 5 },
+        { "title": "plt.plot 画第一条折线并 show", "minutes": 10, "granularity": 10 },
+        { "title": "加标题与 x/y 轴标签", "minutes": 10, "granularity": 10 },
+        { "title": "柱状图:各舱位乘客人数", "minutes": 10, "granularity": 10 },
+        { "title": "配色/图例/网格并保存 png", "minutes": 15, "granularity": 15 },
+        { "title": "直方图:年龄分布 bins=20", "minutes": 10, "granularity": 10 },
+        { "title": "加中位数竖线并 annotate 标注", "minutes": 15, "granularity": 15 },
+        { "title": "散点图:年龄 vs 票价", "minutes": 5, "granularity": 5 },
+        { "title": "按是否存活分两种颜色", "minutes": 5, "granularity": 5 },
+        { "title": "subplot 一行两列画两张图", "minutes": 15, "granularity": 15 },
+        { "title": "折线图:模拟月度销售趋势", "minutes": 10, "granularity": 10 },
+        { "title": "保存 300dpi 到 figures/ 目录", "minutes": 15, "granularity": 15 },
+        { "title": "给周分析结论配 2 张图并写图注", "minutes": 10, "granularity": 10 },
+        { "title": "图表体检:标题/轴名/单位齐全", "minutes": 15, "granularity": 15 },
+        { "title": "笔记:柱/线/点/直方选图速查", "minutes": 5, "granularity": 5 },
+        { "title": "重画本周最满意的 1 张图", "minutes": 10, "granularity": 10 },
+        { "title": "打卡复盘", "minutes": 10, "granularity": 10 }
+      ]
+    },
+    {
+      "week": 9,
+      "focus": "SQL 基础",
+      "topics": [
+        { "id": "sql-select-where", "name": "查询与筛选" },
+        { "id": "sql-groupby-having", "name": "分组汇总" },
+        { "id": "sql-joins", "name": "多表连接" },
+        { "id": "sql-python-sqlite", "name": "Python 与 SQLite" }
+      ],
+      "dailyTemplates": [
+        { "title": "安装 DB Browser 或用自带 sqlite3", "minutes": 5, "granularity": 5 },
+        { "title": "CREATE TABLE 建 students 并插 3 行", "minutes": 10, "granularity": 10 },
+        { "title": "SELECT * 查看全部数据", "minutes": 10, "granularity": 10 },
+        { "title": "SELECT name, score 加 WHERE 筛选", "minutes": 10, "granularity": 10 },
+        { "title": "ORDER BY 排序 + LIMIT 取前 5", "minutes": 15, "granularity": 15 },
+        { "title": "GROUP BY 班级算平均分", "minutes": 10, "granularity": 10 },
+        { "title": "HAVING 筛出平均分>80 的班级", "minutes": 15, "granularity": 15 },
+        { "title": "再建 classes 表并插入 3 行", "minutes": 5, "granularity": 5 },
+        { "title": "各写 1 条 INNER 与 LEFT JOIN", "minutes": 5, "granularity": 5 },
+        { "title": "JOIN+GROUP BY:各班人数与均分", "minutes": 15, "granularity": 15 },
+        { "title": "用 sqlite3 把 titanic 导入数据库", "minutes": 10, "granularity": 10 },
+        { "title": "pd.read_sql 查询结果转 DataFrame", "minutes": 15, "granularity": 15 },
+        { "title": "用 SQL 重算舱位×性别存活率", "minutes": 10, "granularity": 10 },
+        { "title": "核对 SQL 与 Pandas 结果一致", "minutes": 15, "granularity": 15 },
+        { "title": "笔记:SQL 关键词书写/执行顺序", "minutes": 5, "granularity": 5 },
+        { "title": "重写 1 条两表 JOIN 查询", "minutes": 10, "granularity": 10 },
+        { "title": "打卡复盘", "minutes": 10, "granularity": 10 }
+      ]
+    },
+    {
+      "week": 10,
+      "focus": "综合小项目:泰坦尼克存活因素分析",
+      "topics": [
+        { "id": "proj-scope-setup", "name": "选题与工程搭建" },
+        { "id": "proj-data-pipeline", "name": "数据管道" },
+        { "id": "proj-eda", "name": "探索性分析" },
+        { "id": "proj-report", "name": "结论与报告" }
+      ],
+      "dailyTemplates": [
+        { "title": "定题:泰坦尼克存活因素分析", "minutes": 5, "granularity": 5 },
+        { "title": "写 README:问题/数据/交付物", "minutes": 10, "granularity": 10 },
+        { "title": "建 repo/src/figures 目录结构", "minutes": 10, "granularity": 10 },
+        { "title": "main.py 读入数据并输出概览", "minutes": 10, "granularity": 10 },
+        { "title": "复用第 6 周清洗:缺失/类型/去重", "minutes": 15, "granularity": 15 },
+        { "title": "EDA:性别×存活率柱状结论", "minutes": 10, "granularity": 10 },
+        { "title": "EDA:年龄分布与家庭大小影响", "minutes": 15, "granularity": 15 },
+        { "title": "图 1:各舱位存活率柱状图", "minutes": 5, "granularity": 5 },
+        { "title": "图 2:年龄分布直方图", "minutes": 5, "granularity": 5 },
+        { "title": "图 3:年龄-票价分色散点图", "minutes": 15, "granularity": 15 },
+        { "title": "conclusions.md 写 3 条发现", "minutes": 10, "granularity": 10 },
+        { "title": "每条发现标注对应图表编号", "minutes": 15, "granularity": 15 },
+        { "title": "重构:清洗→分析→出图各成函数", "minutes": 10, "granularity": 10 },
+        { "title": "一键全流程重跑不出错", "minutes": 15, "granularity": 15 },
+        { "title": "自查:可复现/注释/命名三项", "minutes": 5, "granularity": 5 },
+        { "title": "修掉最不满意的 1 处", "minutes": 10, "granularity": 10 },
+        { "title": "打卡:项目 v1 完成", "minutes": 10, "granularity": 10 }
+      ]
+    },
+    {
+      "week": 11,
+      "focus": "复盘与博客写作",
+      "topics": [
+        { "id": "review-gaps", "name": "薄弱点复盘" },
+        { "id": "blog-outline", "name": "大纲与初稿" },
+        { "id": "blog-polish-publish", "name": "润色与发布" }
+      ],
+      "dailyTemplates": [
+        { "title": "回看 12 周打卡与笔记清单", "minutes": 5, "granularity": 5 },
+        { "title": "列出 5 个不牢的知识点", "minutes": 10, "granularity": 10 },
+        { "title": "排优先级:先补哪 2 个", "minutes": 10, "granularity": 10 },
+        { "title": "定题:12 周 Python 数据分析之路", "minutes": 10, "granularity": 10 },
+        { "title": "写大纲:问题/路线/方法/结果", "minutes": 15, "granularity": 15 },
+        { "title": "写初稿上半:背景与路线", "minutes": 10, "granularity": 10 },
+        { "title": "写初稿下半:项目与踩坑", "minutes": 15, "granularity": 15 },
+        { "title": "挑 3 张项目图表插入文中", "minutes": 5, "granularity": 5 },
+        { "title": "贴清洗/groupby 代码段各 1 段", "minutes": 5, "granularity": 5 },
+        { "title": "通读一遍删掉 20% 字数", "minutes": 15, "granularity": 15 },
+        { "title": "起 3 个候选标题选 1 个", "minutes": 10, "granularity": 10 },
+        { "title": "排版:小标题/列表/重点加粗", "minutes": 15, "granularity": 15 },
+        { "title": "发布到掘金/知乎任一平台", "minutes": 10, "granularity": 10 },
+        { "title": "发 1 个社群求 3 条反馈", "minutes": 15, "granularity": 15 },
+        { "title": "把反馈记入改进清单", "minutes": 5, "granularity": 5 },
+        { "title": "间隔重复:补 1 个薄弱知识点", "minutes": 10, "granularity": 10 },
+        { "title": "打卡复盘", "minutes": 10, "granularity": 10 }
+      ]
+    },
+    {
+      "week": 12,
+      "focus": "成果展示与下一程",
+      "topics": [
+        { "id": "demo-slides", "name": "成果幻灯" },
+        { "id": "demo-script-video", "name": "讲稿与视频" },
+        { "id": "next-roadmap", "name": "下一程规划" }
+      ],
+      "dailyTemplates": [
+        { "title": "定结构:问题→方法→结果→下一步", "minutes": 5, "granularity": 5 },
+        { "title": "列成果:代码/图表/博客清单", "minutes": 10, "granularity": 10 },
+        { "title": "挑 3 张最有说服力的图", "minutes": 10, "granularity": 10 },
+        { "title": "做 6 页幻灯,每页一句话", "minutes": 10, "granularity": 10 },
+        { "title": "打磨首页:一句话说清成果", "minutes": 15, "granularity": 15 },
+        { "title": "写 3 分钟口播稿", "minutes": 10, "granularity": 10 },
+        { "title": "计时朗读一遍并改稿", "minutes": 15, "granularity": 15 },
+        { "title": "录屏演示 main.py 全流程", "minutes": 5, "granularity": 5 },
+        { "title": "补自我介绍与数据来源两页", "minutes": 5, "granularity": 5 },
+        { "title": "完整排练 1 遍并卡时间", "minutes": 15, "granularity": 15 },
+        { "title": "正式录制 5 分钟内视频", "minutes": 10, "granularity": 10 },
+        { "title": "剪掉长停顿与口误", "minutes": 15, "granularity": 15 },
+        { "title": "把视频发到群/朋友圈", "minutes": 10, "granularity": 10 },
+        { "title": "写谢幕贴:收获与感谢", "minutes": 15, "granularity": 15 },
+        { "title": "定下 12 周进阶新目标", "minutes": 5, "granularity": 5 },
+        { "title": "选定下一个 Skill Pack", "minutes": 10, "granularity": 10 },
+        { "title": "毕业打卡:全周期数据复盘", "minutes": 10, "granularity": 10 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+<!-- pages/squad/squad.wxml — 「小队」页 -->
+<view class="chat-page">
+
+  <!-- 消息列表 -->
+  <scroll-view class="chat-scroll" scroll-y="{{true}}" scroll-into-view="{{scrollIntoView}}" scroll-with-animation="{{true}}">
+    <view class="msg-list">
+      <view class="msg-row {{item.role === 'me' ? 'me' : 'agent'}}" wx:for="{{messages}}" wx:key="id" id="msg-{{item.id}}">
+        <view wx:if="{{item.role === 'agent'}}" class="avatar">{{item.agentEmoji}}</view>
+        <view class="bubble-wrap">
+          <view wx:if="{{item.role === 'agent'}}" class="agent-badge {{item.agentClass}}">{{item.agentLabel}}</view>
+          <text class="bubble {{item.role === 'me' ? 'bubble-me' : 'bubble-agent'}}" user-select="{{true}}">{{item.text}}</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 快捷问题 -->
+  <view class="chips">
+    <view class="chip" wx:for="{{chips}}" wx:key="*this" bindtap="onChipTap" data-text="{{item}}">{{item}}</view>
+  </view>
+
+  <!-- 输入栏 -->
+  <view class="input-bar">
+    <input class="chat-input" value="{{input}}" bindinput="onInput" bindconfirm="onSend" confirm-type="send" placeholder="和你的小队聊聊…" placeholder-class="input-placeholder" />
+    <button class="send-btn" bindtap="onSend" disabled="{{sending}}">发送</button>
+  </view>
+</view>

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="480" height="480">
+  <defs>
+    <!-- 夜墨底:深靛渐变,留出呼吸的留白 -->
+    <radialGradient id="inkBg" cx="38%" cy="30%" r="95%">
+      <stop offset="0%" stop-color="#34306E"/>
+      <stop offset="55%" stop-color="#221D52"/>
+      <stop offset="100%" stop-color="#14112F"/>
+    </radialGradient>
+    <!-- 笔触:靛→青的流动渐变 -->
+    <linearGradient id="stroke" x1="12%" y1="92%" x2="88%" y2="16%">
+      <stop offset="0%" stop-color="#8F9BFF"/>
+      <stop offset="45%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#0D9488"/>
+    </linearGradient>
+    <linearGradient id="echoStroke" x1="20%" y1="90%" x2="80%" y2="30%">
+      <stop offset="0%" stop-color="#5A5470" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#6E68C9" stop-opacity=".85"/>
+    </linearGradient>
+    <radialGradient id="sparkGlow">
+      <stop offset="0%" stop-color="#FFC98A"/>
+      <stop offset="45%" stop-color="#E8701A"/>
+      <stop offset="100%" stop-color="#E8701A" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 圆形墨章 -->
+  <circle cx="120" cy="120" r="112" fill="url(#inkBg)"/>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="#3B3794" stroke-width="1.5" opacity=".6"/>
+  <!-- 内圈细描,印章感 -->
+  <circle cx="120" cy="120" r="102" fill="none" stroke="#8F9BFF" stroke-width=".8" opacity=".35"/>
+
+  <!-- 倒影笔锋(浅,若隐) -->
+  <path d="M 56 172 C 84 158 118 150 150 136"
+        fill="none" stroke="url(#echoStroke)" stroke-width="7" stroke-linecap="round" opacity=".4"/>
+
+  <!-- 主笔触:起笔沉、行笔扬、收笔出锋(叠三笔成枯润变化) -->
+  <path d="M 44 190
+           C 70 178 92 166 112 150
+           C 134 132 152 110 168 84
+           C 174 74 180 62 184 52"
+        fill="none" stroke="url(#stroke)" stroke-width="17" stroke-linecap="round"/>
+  <!-- 飞白:主笔上的细亮线 -->
+  <path d="M 50 186 C 78 172 100 158 118 142 C 138 124 154 102 170 78"
+        fill="none" stroke="#C9D0FF" stroke-width="2.6" stroke-linecap="round" opacity=".65"/>
+  <!-- 出锋细尾 -->
+  <path d="M 184 52 C 187 44 190 38 194 32"
+        fill="none" stroke="#0D9488" stroke-width="5.5" stroke-linecap="round"/>
+
+  <!-- 火花:笔锋点燃处 -->
+  <circle cx="194" cy="30" r="21" fill="url(#sparkGlow)" opacity=".8"/>
+  <circle cx="194" cy="30" r="7.5" fill="#FFB25C"/>
+  <circle cx="194" cy="30" r="3.6" fill="#FFF3DF"/>
+  <!-- 迸出的墨点(起笔的动能) -->
+  <circle cx="211" cy="47" r="2.6" fill="#E8701A" opacity=".9"/>
+  <circle cx="204" cy="12" r="2.0" fill="#F7C98C" opacity=".9"/>
+  <circle cx="47" cy="171" r="2.4" fill="#8F9BFF" opacity=".7"/>
+</svg>

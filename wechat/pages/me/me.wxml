@@ -1,0 +1,45 @@
+<!-- pages/me/me.wxml — 「我的」页 -->
+<view class="container">
+
+  <!-- 服务器设置 -->
+  <view class="card">
+    <view class="card-title">⚙️ 服务器设置</view>
+    <view class="muted small-text server-tip">小程序需要连接 Kickoff Web 端 API。开发环境可用 http://localhost:3000(仅限开发者工具模拟器);正式环境必须使用 https 域名。</view>
+    <input class="text-input" value="{{serverURL}}" bindinput="onServerInput" placeholder="https://your-domain.com" placeholder-class="input-placeholder" />
+    <view wx:if="{{isHttp}}" class="warn-text">⚠️ 当前是 http 地址,真机与正式环境无法请求,仅限本地开发调试。</view>
+    <view class="btn-row">
+      <button class="btn-primary" bindtap="onSaveServer">保存地址</button>
+      <button class="btn-ghost" bindtap="onResetServer">恢复默认</button>
+
+<view class="card mt16">
+  <view class="card-title">主动邀约 · Pace 会来找你</view>
+  <view class="muted small-text">开启后,在你活跃学习时段(默认 20-22 点)可收到一条「2 分钟第一步」的启动邀约。每次点击授权可接收一条(微信一次性订阅消息机制)。</view>
+  <button class="btn-primary" bindtap="onEnableReminder">开启 Pace 提醒</button>
+  <view wx:if="{{reminderStatus}}" class="muted small-text mt8">{{reminderStatus}}</view>
+</view>
+    </view>
+  </view>
+
+  <!-- 专注支持模式 -->
+  <view class="card">
+    <view class="row-between">
+      <view class="grow">
+        <view class="card-title">🎧 专注支持模式</view>
+        <view class="muted small-text">开启后,「今天」与打卡会更倾向小步骤、低压力的节奏(当前仅保存在本机)。</view>
+      </view>
+      <switch checked="{{focusMode}}" bindchange="onFocusModeChange" color="#4F46E5" />
+    </view>
+  </view>
+
+  <!-- 免责声明 -->
+  <view class="card">
+    <view class="card-title">🪞 免责声明</view>
+    <view class="muted disclaimer">Kickoff 是学习与自我管理工具,不构成医疗建议或诊断,不替代专业治疗。如果你正处于严重困扰或危机中,请及时联系专业人士或当地援助热线。</view>
+  </view>
+
+  <!-- 版本信息 -->
+  <view class="card center version-card">
+    <view class="muted small-text">Kickoff · 多 Agent 学习引擎</view>
+    <view class="muted small-text">小程序骨架 v0.1.0</view>
+  </view>
+</view>

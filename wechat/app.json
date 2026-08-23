@@ -1,0 +1,37 @@
+{
+  "pages": [
+    "pages/today/today",
+    "pages/squad/squad",
+    "pages/me/me"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#1E1B4B",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "Kickoff",
+    "backgroundColor": "#F4F4F8",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#8A8F9C",
+    "selectedColor": "#4F46E5",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/today/today",
+        "text": "今天"
+      },
+      {
+        "pagePath": "pages/squad/squad",
+        "text": "小队"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

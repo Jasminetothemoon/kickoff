@@ -1,0 +1,27 @@
+{
+  "appId": "com.kickoff.desktop",
+  "productName": "Kickoff",
+  "directories": { "output": "dist" },
+  "files": [
+    "main.js",
+    "preload.js",
+    "index.html",
+    "renderer.js",
+    "style.css",
+    "park.html",
+    "park.js",
+    "park.css",
+    "assets/icon.png",
+    "assets/icon-16.png"
+  ],
+  "mac": {
+    "category": "public.app-category.productivity",
+    "icon": "assets/icon.png"
+  },
+  "win": { "icon": "assets/icon.png" },
+  "linux": {
+    "icon": "assets/icon.png",
+    "category": "Utility",
+    "target": ["AppImage"]
+  }
+}

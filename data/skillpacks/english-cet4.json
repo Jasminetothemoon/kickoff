@@ -1,0 +1,150 @@
+{
+  "id": "english-cet4",
+  "name": "英语四级核心词汇冲刺",
+  "totalWeeks": 4,
+  "minutesPerDay": 25,
+  "weeks": [
+    {
+      "week": 1,
+      "focus": "高频核心词 List 1-2(动词与名词)",
+      "topics": [
+        { "id": "cet4-verbs-list", "name": "核心动词词表" },
+        { "id": "cet4-nouns-list", "name": "核心名词词表" },
+        { "id": "cet4-spaced-review", "name": "间隔复习与错词本" }
+      ],
+      "dailyTemplates": [
+        { "title": "新建 Anki 牌组 CET4-W1", "minutes": 2, "granularity": 2 },
+        { "title": "导入核心动词前 10 词", "minutes": 2, "granularity": 2 },
+        { "title": "遮住中文回想这 10 词", "minutes": 2, "granularity": 2 },
+        { "title": "标出记不住的 3 个词", "minutes": 2, "granularity": 2 },
+        { "title": "只重学这 3 个难词", "minutes": 2, "granularity": 2 },
+        { "title": "学动词第 11-20 词并自测", "minutes": 5, "granularity": 5 },
+        { "title": "跟读 20 词发音各 1 遍", "minutes": 5, "granularity": 5 },
+        { "title": "默写 5 个最难词并打卡", "minutes": 5, "granularity": 5 },
+        { "title": "学动词第 21-30 词", "minutes": 5, "granularity": 5 },
+        { "title": "用其中 5 词各造 1 句", "minutes": 5, "granularity": 5 },
+        { "title": "快速复习昨日 20 词", "minutes": 5, "granularity": 5 },
+        { "title": "Anki 清空今日到期卡片", "minutes": 10, "granularity": 10 },
+        { "title": "学动词第 31-40 词并自测", "minutes": 10, "granularity": 10 },
+        { "title": "全表 40 词快测,错词打星", "minutes": 10, "granularity": 10 },
+        { "title": "把打星词抄进错词本", "minutes": 5, "granularity": 5 },
+        { "title": "学名词 List 第 1-10 词", "minutes": 5, "granularity": 5 },
+        { "title": "学名词第 11-20 词", "minutes": 5, "granularity": 5 },
+        { "title": "学名词第 21-30 词", "minutes": 5, "granularity": 5 },
+        { "title": "学名词第 31-40 词", "minutes": 5, "granularity": 5 },
+        { "title": "复习昨日打星动词", "minutes": 5, "granularity": 5 },
+        { "title": "归纳 -tion/-ment 名词词族", "minutes": 5, "granularity": 5 },
+        { "title": "辨析 3 组近义词", "minutes": 5, "granularity": 5 },
+        { "title": "复习名词第 1-20 词", "minutes": 5, "granularity": 5 },
+        { "title": "精读真题段落,圈出已学词", "minutes": 10, "granularity": 10 },
+        { "title": "全量快测本周 80 词", "minutes": 10, "granularity": 10 },
+        { "title": "用错词编一个连贯小故事", "minutes": 10, "granularity": 10 },
+        { "title": "朗读小故事 2 遍", "minutes": 5, "granularity": 5 },
+        { "title": "错词本从头过一遍", "minutes": 5, "granularity": 5 },
+        { "title": "Anki 清空全部到期", "minutes": 5, "granularity": 5 },
+        { "title": "归纳词根 -spect 系列词", "minutes": 5, "granularity": 5 },
+        { "title": "核对估时与实际偏差", "minutes": 5, "granularity": 5 },
+        { "title": "打卡+写下周执行意图", "minutes": 5, "granularity": 5 }
+      ]
+    },
+    {
+      "week": 2,
+      "focus": "真题阅读高频词与搭配",
+      "topics": [
+        { "id": "cet4-reading-words", "name": "阅读高频词" },
+        { "id": "cet4-collocations", "name": "动词搭配与短语" },
+        { "id": "cet4-roots-affixes", "name": "词根词缀" }
+      ],
+      "dailyTemplates": [
+        { "title": "打开 1 篇真题阅读 A 篇", "minutes": 2, "granularity": 2 },
+        { "title": "抄下 5 个生词", "minutes": 2, "granularity": 2 },
+        { "title": "查词义并标注音标", "minutes": 2, "granularity": 2 },
+        { "title": "给 5 词各补半个例句", "minutes": 2, "granularity": 2 },
+        { "title": "遮住释义回想自测", "minutes": 2, "granularity": 2 },
+        { "title": "精读 A 篇首段并口译", "minutes": 5, "granularity": 5 },
+        { "title": "生词录入 Anki", "minutes": 5, "granularity": 5 },
+        { "title": "复习 W1 到期卡并打卡", "minutes": 5, "granularity": 5 },
+        { "title": "学 make/take/have 搭配 10 组", "minutes": 5, "granularity": 5 },
+        { "title": "背真题常考短语 10 个", "minutes": 5, "granularity": 5 },
+        { "title": "搭配连线自测一轮", "minutes": 5, "granularity": 5 },
+        { "title": "精读 A 篇第 2 段并划短语", "minutes": 10, "granularity": 10 },
+        { "title": "词根 spect/duc/fer 各学 3 词", "minutes": 10, "granularity": 10 },
+        { "title": "用词根猜 5 个生词词义", "minutes": 10, "granularity": 10 },
+        { "title": "新词录入 Anki 并自测", "minutes": 5, "granularity": 5 },
+        { "title": "阅读 B 篇,摘生词 10 个", "minutes": 5, "granularity": 5 },
+        { "title": "用生词造句 5 句", "minutes": 5, "granularity": 5 },
+        { "title": "复习昨日词根词", "minutes": 5, "granularity": 5 },
+        { "title": "搭配再测 10 组", "minutes": 5, "granularity": 5 },
+        { "title": "Anki 清空到期卡片", "minutes": 5, "granularity": 5 },
+        { "title": "近义替换 3 组(如 important)", "minutes": 5, "granularity": 5 },
+        { "title": "阅读 C 篇,摘生词 10 个", "minutes": 5, "granularity": 5 },
+        { "title": "三篇阅读生词总复习", "minutes": 5, "granularity": 5 },
+        { "title": "重读 A 篇,验证生词已认", "minutes": 10, "granularity": 10 },
+        { "title": "本周 40 生词全量快测", "minutes": 10, "granularity": 10 },
+        { "title": "错词编成小故事记忆", "minutes": 10, "granularity": 10 },
+        { "title": "朗读小故事 2 遍", "minutes": 5, "granularity": 5 },
+        { "title": "错词本复习一轮", "minutes": 5, "granularity": 5 },
+        { "title": "笔记:最常用 3 个词根", "minutes": 5, "granularity": 5 },
+        { "title": "核对估时偏差", "minutes": 5, "granularity": 5 },
+        { "title": "整理两周错词 Top 10", "minutes": 5, "granularity": 5 },
+        { "title": "打卡+给自己一个微庆祝", "minutes": 5, "granularity": 5 }
+      ]
+    },
+    {
+      "week": 3,
+      "focus": "听力场景词与写作替换词",
+      "topics": [
+        { "id": "cet4-listening-scenes", "name": "听力场景词" },
+        { "id": "cet4-writing-substitutes", "name": "写作高级替换" },
+        { "id": "cet4-dictation", "name": "听写训练" }
+      ],
+      "dailyTemplates": [
+        { "title": "校园场景词 15 个+跟读", "minutes": 5, "granularity": 5 },
+        { "title": "听 1 段校园对话并选答案", "minutes": 10, "granularity": 10 },
+        { "title": "对照原文圈出未听出的词", "minutes": 10, "granularity": 10 },
+        { "title": "旅行/订票场景词 15 个", "minutes": 10, "granularity": 10 },
+        { "title": "听写 5 句场景句并核对拼写", "minutes": 15, "granularity": 15 },
+        { "title": "写作替换词 20 个(如 vital)", "minutes": 10, "granularity": 10 },
+        { "title": "用替换词改写 3 个模板句", "minutes": 15, "granularity": 15 },
+        { "title": "租房/银行场景词 10 个", "minutes": 5, "granularity": 5 },
+        { "title": "跟读场景词各 2 遍", "minutes": 5, "granularity": 5 },
+        { "title": "听 2 段长对话并总结大意", "minutes": 15, "granularity": 15 },
+        { "title": "写作连接词 10 个按功能归类", "minutes": 10, "granularity": 10 },
+        { "title": "用连接词写 1 篇 80 词短文", "minutes": 15, "granularity": 15 },
+        { "title": "本周场景词全量自测", "minutes": 10, "granularity": 10 },
+        { "title": "错词听写订正 2 遍", "minutes": 15, "granularity": 15 },
+        { "title": "错词本+Anki 清零", "minutes": 5, "granularity": 5 },
+        { "title": "笔记:三大场景词思维导图", "minutes": 10, "granularity": 10 },
+        { "title": "打卡复盘", "minutes": 10, "granularity": 10 }
+      ]
+    },
+    {
+      "week": 4,
+      "focus": "真题复测与总复习",
+      "topics": [
+        { "id": "cet4-mock-test", "name": "真题词汇复测" },
+        { "id": "cet4-final-review", "name": "总复习" },
+        { "id": "cet4-retention-plan", "name": "长期保持计划" }
+      ],
+      "dailyTemplates": [
+        { "title": "做真题选词填空 1 篇", "minutes": 5, "granularity": 5 },
+        { "title": "错题词回查并录入 Anki", "minutes": 10, "granularity": 10 },
+        { "title": "重做该篇验证全对", "minutes": 10, "granularity": 10 },
+        { "title": "三周词汇混合快测 100 词", "minutes": 10, "granularity": 10 },
+        { "title": "错词归因:形近/义近/遗忘", "minutes": 15, "granularity": 15 },
+        { "title": "形近词对 10 组辨析", "minutes": 10, "granularity": 10 },
+        { "title": "义近词对 10 组各造 1 句", "minutes": 15, "granularity": 15 },
+        { "title": "听力高频词复听 20 个", "minutes": 5, "granularity": 5 },
+        { "title": "写作替换词默写 15 个", "minutes": 5, "granularity": 5 },
+        { "title": "限时模拟:1 套词汇题", "minutes": 15, "granularity": 15 },
+        { "title": "错词本最终轮复习", "minutes": 10, "granularity": 10 },
+        { "title": "给每个顽固错词配记忆钩子", "minutes": 15, "granularity": 15 },
+        { "title": "总测 120 词,目标正确率 90%", "minutes": 10, "granularity": 10 },
+        { "title": "导出个人四级词表存档", "minutes": 15, "granularity": 15 },
+        { "title": "庆祝:回顾 4 周打卡轨迹", "minutes": 5, "granularity": 5 },
+        { "title": "制定考后间隔复习计划", "minutes": 10, "granularity": 10 },
+        { "title": "打卡结业+晒学习成果", "minutes": 10, "granularity": 10 }
+      ]
+    }
+  ]
+}

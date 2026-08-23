@@ -1,0 +1,143 @@
+/* pages/today/today.wxss — 「今天」页样式 */
+
+/* 未创建目标引导 */
+.big-emoji {
+  font-size: 88rpx;
+  text-align: center;
+  margin: 16rpx 0 8rpx;
+}
+.guide-text { margin: 8rpx 24rpx 0; }
+.server-pill {
+  background: #F4F4F8;
+  border-radius: 12rpx;
+  padding: 14rpx 20rpx;
+  font-size: 24rpx;
+  color: #4F46E5;
+  text-align: center;
+  margin: 24rpx 0 8rpx;
+  word-break: break-all;
+}
+.pill-tip { margin-top: 16rpx; }
+.no-goal-card .btn-primary { margin-top: 24rpx; }
+
+/* 今日任务 */
+.task-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #1F2430;
+  margin: 4rpx 0;
+}
+
+/* 启动卡 */
+.step-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #1E1B4B;
+  line-height: 1.5;
+  margin: 4rpx 0 20rpx;
+}
+.meta-list {
+  background: #F8F8FC;
+  border-radius: 16rpx;
+  padding: 4rpx 24rpx;
+  margin-bottom: 24rpx;
+}
+.meta-row {
+  display: flex;
+  padding: 16rpx 0;
+  font-size: 26rpx;
+  border-bottom: 1rpx solid #EFEDF6;
+}
+.meta-row:last-child { border-bottom: none; }
+.meta-key {
+  width: 170rpx;
+  flex-shrink: 0;
+  color: #6B7280;
+}
+.meta-val {
+  flex: 1;
+  color: #1F2430;
+}
+
+/* 按钮纵排 */
+.btn-col button {
+  width: 100%;
+  margin-top: 20rpx;
+}
+.btn-col button:first-child { margin-top: 0; }
+.big-btn {
+  height: 96rpx;
+  line-height: 96rpx;
+  font-size: 32rpx;
+}
+
+/* 计时态 */
+.timer-box {
+  text-align: center;
+  padding: 8rpx 0;
+}
+.timer-time {
+  font-size: 88rpx;
+  font-weight: 700;
+  color: #E8701A;
+  margin: 8rpx 0 20rpx;
+  font-family: "SF Pro", Menlo, Consolas, monospace;
+}
+.timer-tip { margin: 16rpx 0 4rpx; }
+
+/* 拆解步骤 */
+.step-item {
+  display: flex;
+  align-items: center;
+  padding: 18rpx 0;
+  border-bottom: 1rpx solid #F3F1FA;
+}
+.step-item:last-child { border-bottom: none; }
+.step-index {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background: #D9F1EE;
+  color: #0D948A;
+  text-align: center;
+  line-height: 40rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  margin-right: 18rpx;
+  flex-shrink: 0;
+}
+.step-text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #1F2430;
+}
+.step-min {
+  font-size: 24rpx;
+  color: #6B7280;
+  margin-left: 16rpx;
+  flex-shrink: 0;
+}
+
+/* 杂念停车场 */
+.park-row {
+  display: flex;
+  align-items: center;
+}
+.park-input {
+  flex: 1;
+  margin: 8rpx 16rpx 8rpx 0;
+}
+.park-btn {
+  flex-shrink: 0;
+  width: auto;
+  height: 72rpx;
+  line-height: 72rpx;
+  padding: 0 30rpx;
+}
+
+/* 本周进度 */
+.week-num {
+  font-size: 30rpx;
+  font-weight: 700;
+}
+.week-focus { margin-top: 14rpx; }

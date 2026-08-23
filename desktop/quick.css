@@ -1,0 +1,70 @@
+/* Kickoff Desktop — 快速启动小窗(样式模式沿用 park.css / style.css) */
+:root {
+  --indigo-950: #1E1B4B;
+  --indigo-600: #4F46E5;
+  --indigo-100: #E0E7FF;
+  --indigo-50: #EEF2FF;
+  --ink: #1F2937;
+  --ink-soft: #6B7280;
+  --line: #E5E7EB;
+  --danger: #DC2626;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: #FFFFFF; color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.quick-top {
+  -webkit-app-region: drag;
+  flex: none; height: 40px;
+  background: var(--indigo-950); color: #fff;
+  display: flex; align-items: center; gap: 8px; padding: 0 14px;
+}
+.quick-badge {
+  width: 20px; height: 20px; border-radius: 6px;
+  background: rgba(255,255,255,0.16); color: #fff;
+  font-size: 12px; font-weight: 800;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.quick-title { font-size: 13px; font-weight: 700; flex: 1; }
+.quick-hint-key { font-size: 11px; color: rgba(255,255,255,0.55); }
+.quick-body {
+  flex: 1; padding: 14px 16px;
+  display: flex; flex-direction: column;
+}
+.quick-kicker {
+  font-size: 11px; font-weight: 700; color: var(--indigo-600);
+  letter-spacing: .8px; margin-bottom: 6px;
+}
+.quick-step {
+  font-size: 14px; font-weight: 650; line-height: 1.5;
+  min-height: 42px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.quick-meta {
+  margin-top: 4px; font-size: 12px; line-height: 1.5;
+  color: var(--ink-soft); word-break: break-all;
+}
+.quick-meta.err { color: var(--danger); }
+.quick-actions {
+  margin-top: auto; padding-top: 12px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.btn {
+  width: 100%; padding: 12px 0; border: none; border-radius: 12px;
+  font-size: 14px; font-weight: 650; cursor: pointer;
+  transition: transform .06s ease, filter .15s ease;
+}
+.btn:active { transform: scale(.98); }
+.btn-primary { background: var(--indigo-600); color: #fff; }
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-ghost { background: #fff; color: var(--indigo-600); border: 1px solid var(--indigo-100); }
+.btn-ghost:hover { background: var(--indigo-50); }

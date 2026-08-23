@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:" />
+  <title>杂念停车场</title>
+  <link rel="stylesheet" href="park.css" />
+</head>
+<body>
+  <header class="park-top">
+    <span class="park-badge">P</span>
+    <span class="park-title">杂念停车场</span>
+    <span class="park-hint-key">Enter 停车 · Esc 关闭</span>
+  </header>
+  <main class="park-body">
+    <input id="park-input" type="text" maxlength="200" placeholder="想到了什么?写下来,回头再处理…" spellcheck="false" autocomplete="off" />
+    <div id="park-msg" class="park-msg" role="status"></div>
+  </main>
+  <script src="park.js"></script>
+</body>
+</html>

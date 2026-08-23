@@ -1,0 +1,106 @@
+<!-- pages/today/today.wxml — 「今天」页 -->
+<view class="container">
+
+  <!-- 未创建目标:引导去网页端 -->
+  <view wx:if="{{!hasGoal}}" class="card no-goal-card">
+    <view class="big-emoji">🌱</view>
+    <view class="card-title center">还没有创建目标</view>
+    <view class="muted center guide-text">先在网页端创建你的学习目标,Kickoff 会每天为你生成一张「2 分钟启动卡」,帮你从最小的一步开始。</view>
+    <view class="server-pill">{{baseURL}}</view>
+    <button class="btn-primary" bindtap="onCopyBaseURL">去网页端创建目标</button>
+    <view class="muted small-text center pill-tip">点击按钮复制网页端地址,粘贴到浏览器打开</view>
+  </view>
+
+  <block wx:else>
+    <!-- 加载中 -->
+    <view wx:if="{{loading}}" class="card center muted">正在加载今天的数据…</view>
+
+    <block wx:else>
+      <!-- 今日任务 -->
+      <view wx:if="{{task}}" class="card">
+        <view class="card-label text-indigo">📌 今日任务</view>
+        <view class="task-title">{{task.title}}</view>
+        <view class="muted small-text">预计 {{task.minutes}} 分钟</view>
+      </view>
+
+      <!-- 启动卡:计时态 / 待开始 -->
+      <view wx:if="{{startCard}}" class="card">
+        <view class="card-label text-orange">⚡ 2 分钟启动卡</view>
+        <view class="step-title">{{startCard.firstStep}}</view>
+
+        <view class="meta-list">
+          <view class="meta-row">
+            <text class="meta-key">⏱ 时长</text>
+            <text class="meta-val">{{effMinutes}} 分钟</text>
+          </view>
+          <view class="meta-row" wx:if="{{startCard.doneCriteria}}">
+            <text class="meta-key">✅ 完成标准</text>
+            <text class="meta-val">{{startCard.doneCriteria}}</text>
+          </view>
+          <view class="meta-row" wx:if="{{startCard.intent}}">
+            <text class="meta-key">🎯 执行意图</text>
+            <text class="meta-val">{{startCard.intent}}</text>
+          </view>
+        </view>
+
+        <!-- 计时进行中(运行/暂停) -->
+        <view wx:if="{{timerActive}}" class="timer-box">
+          <view class="timer-time">{{displayTime}}</view>
+          <view class="progress-track">
+            <view class="progress-fill orange" style="width: {{progressPercent}}%;"></view>
+          </view>
+          <view class="muted small-text center timer-tip">只做这 {{effMinutes}} 分钟,做完就可以停。</view>
+          <view class="btn-row">
+            <button class="btn-ghost" bindtap="onToggleTimer">{{timerPaused ? '继续' : '暂停'}}</button>
+            <button class="btn-primary" bindtap="onFinishEarly">✓ 完成打卡</button>
+          </view>
+        </view>
+
+        <view wx:else class="btn-col">
+          <button class="btn-primary big-btn" bindtap="onStartTimer">只做 {{effMinutes}} 分钟,现在开始</button>
+          <button class="btn-ghost" bindtap="onSmallerStep" disabled="{{smallerLoading}}">{{smallerLoading ? '正在拆解…' : '换更小的步骤'}}</button>
+        </view>
+      </view>
+
+      <!-- 没有启动卡:现场拆解 -->
+      <view wx:if="{{!startCard}}" class="card">
+        <view class="card-label text-indigo">🧩 现场拆解一个任务</view>
+        <view class="muted small-text">今天还没有启动卡。写下你想推进的事,让小队帮你拆成最小的一步。</view>
+        <input class="text-input" value="{{quickTask}}" bindinput="onQuickTaskInput" placeholder="例如:复习第三章…" placeholder-class="input-placeholder" />
+        <button class="btn-primary" bindtap="onQuickDecompose" disabled="{{smallerLoading}}">{{smallerLoading ? '正在拆解…' : '生成启动卡'}}</button>
+      </view>
+
+      <!-- 拆解出的步骤 -->
+      <view wx:if="{{steps.length > 0}}" class="card">
+        <view class="card-label text-teal">🗺️ 拆解成小步</view>
+        <view class="step-item" wx:for="{{steps}}" wx:key="key">
+          <text class="step-index">{{index + 1}}</text>
+          <text class="step-text">{{item.title}}</text>
+          <text class="step-min">{{item.minutes}} 分钟</text>
+        </view>
+      </view>
+
+      <!-- 杂念停车场 -->
+      <view class="card park-card">
+        <view class="card-label text-deep">🅿️ 杂念停车场</view>
+        <view class="park-row">
+          <input class="text-input park-input" value="{{parkText}}" bindinput="onParkInput" placeholder="想到别的事?先记下来" placeholder-class="input-placeholder" />
+          <button class="btn-ghost park-btn" bindtap="onPark">暂存</button>
+        </view>
+        <view wx:if="{{hasParkCount}}" class="muted small-text">停车场已有 {{parkCount}} 条,回头再处理。</view>
+      </view>
+    </block>
+
+    <!-- 本周进度 -->
+    <view wx:if="{{weekProgress}}" class="card">
+      <view class="row-between">
+        <view class="card-label">📈 本周节奏</view>
+        <view class="week-num text-teal">{{weekProgress.done}} / {{weekProgress.total}}</view>
+      </view>
+      <view class="progress-track">
+        <view class="progress-fill teal" style="width: {{weekPercent}}%;"></view>
+      </view>
+      <view wx:if="{{weekFocus}}" class="muted small-text week-focus">🎯 本周聚焦:{{weekFocus}}</view>
+    </view>
+  </block>
+</view>

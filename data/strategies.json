@@ -1,0 +1,180 @@
+{
+  "strategies": [
+    {
+      "id": "st-exec-intent",
+      "blocker": "环境型",
+      "trigger": "固定场景下难以开始",
+      "action": "生成『如果到了X时间在X地点,我就做X第一步』并写入提醒文案",
+      "evidence": "执行意图(Gollwitzer & Sheeran 2006,d=0.65)",
+      "evidenceLevel": "强"
+    },
+    {
+      "id": "st-env-design",
+      "blocker": "环境型",
+      "trigger": "手机一碰就分心",
+      "action": "环境改造:物理移除干扰源,固定专属学习位",
+      "evidence": "TMT:降低冲动性干扰(Steel 2007)",
+      "evidenceLevel": "强"
+    },
+    {
+      "id": "st-micro-step",
+      "blocker": "模糊型",
+      "trigger": "目标太大太模糊,不知从哪下手",
+      "action": "递归拆解至第一步≤2分钟,今日只暴露第一步",
+      "evidence": "时间动机理论:远截止切成近截止(Steel 2007)",
+      "evidenceLevel": "强"
+    },
+    {
+      "id": "st-two-minute",
+      "blocker": "模糊型",
+      "trigger": "想等状态好了再开始",
+      "action": "只承诺做2分钟,到时想停就停,退出无惩罚",
+      "evidence": "微习惯/两分钟规则+未完成效应",
+      "evidenceLevel": "中"
+    },
+    {
+      "id": "st-scaffold",
+      "blocker": "畏难型",
+      "trigger": "前置知识不够,一看就懵",
+      "action": "回退到前置知识点,降低首次成功门槛",
+      "evidence": "最近发展区/自我效能理论",
+      "evidenceLevel": "中"
+    },
+    {
+      "id": "st-ugly-start",
+      "blocker": "完美主义型",
+      "trigger": "怕做不好,迟迟不敢动手",
+      "action": "切入烂开始草稿模式:先交60分,禁止回头改",
+      "evidence": "完美主义担忧致拖延(Sirois 2017元分析)",
+      "evidenceLevel": "强"
+    },
+    {
+      "id": "st-sixty-reframe",
+      "blocker": "完美主义型",
+      "trigger": "标准过高,越改越焦虑",
+      "action": "追问『60分版本长什么样?』先交付再迭代",
+      "evidence": "恐惧驱动完美主义的认知重构(CBT成分)",
+      "evidenceLevel": "中"
+    },
+    {
+      "id": "st-fresh-start",
+      "blocker": "动力型",
+      "trigger": "计划崩了,想彻底放弃",
+      "action": "借周一/月初发起轻量重置,进度清零重来",
+      "evidence": "Fresh Start时间地标效应(Dai et al. 2014)",
+      "evidenceLevel": "强"
+    },
+    {
+      "id": "st-temptation-bundle",
+      "blocker": "动力型",
+      "trigger": "学习枯燥,娱乐更诱人",
+      "action": "把喜欢的剧/歌设为学习专属,只在学时解锁",
+      "evidence": "诱惑捆绑RCT:坚持率+29%(Milkman 2014)",
+      "evidenceLevel": "强"
+    },
+    {
+      "id": "st-quick-win",
+      "blocker": "动力型",
+      "trigger": "长期看不到成果,动机下滑",
+      "action": "设计当天可完成的小胜利并立即标记达成",
+      "evidence": "TMT:快速小胜利提期望(Steel 2007)",
+      "evidenceLevel": "强"
+    },
+    {
+      "id": "st-goal-link",
+      "blocker": "动力型",
+      "trigger": "不知道学了有什么用",
+      "action": "联结『为什么学』,可视化进度与里程碑",
+      "evidence": "目标联结与内在动机(SDT)",
+      "evidenceLevel": "中"
+    },
+    {
+      "id": "st-woop",
+      "blocker": "动力型",
+      "trigger": "目标远大但路径不清",
+      "action": "引导WOOP:愿望→结果→障碍→如果-那么",
+      "evidence": "心理对照/MCII元分析g≈0.3",
+      "evidenceLevel": "中"
+    },
+    {
+      "id": "st-energy-rhythm",
+      "blocker": "疲劳型",
+      "trigger": "下班后没电,硬学低效",
+      "action": "任务重排至精力高峰,疲劳时切轻认知任务",
+      "evidence": "精力节律与任务类型匹配",
+      "evidenceLevel": "中"
+    },
+    {
+      "id": "st-short-sprint",
+      "blocker": "疲劳型",
+      "trigger": "25分钟番茄撑不完",
+      "action": "10-15分钟短冲刺起步,完成后自适应拉长",
+      "evidence": "延迟折扣+ADHD番茄适配共识",
+      "evidenceLevel": "中"
+    },
+    {
+      "id": "st-emotion-check",
+      "blocker": "通用",
+      "trigger": "一想任务就烦躁,转身刷手机",
+      "action": "启动前情绪检查:命名并接纳情绪,再谈执行",
+      "evidence": "拖延=短期情绪修复(Sirois & Pychyl 2013)",
+      "evidenceLevel": "强"
+    },
+    {
+      "id": "st-self-forgive",
+      "blocker": "通用",
+      "trigger": "断签后自责,越骂越拖",
+      "action": "失败响应=自我原谅+轻量重置,不弹红色警告",
+      "evidence": "自我原谅减少后续拖延(Wohl 2010)",
+      "evidenceLevel": "强"
+    },
+    {
+      "id": "st-time-externalize",
+      "blocker": "通用",
+      "trigger": "截止还远就不真实,估时失真",
+      "action": "时间外部化:倒计时色块+估时→计时→偏差修正",
+      "evidence": "ADHD是时间调节失调,须外部化(Barkley)",
+      "evidenceLevel": "强"
+    },
+    {
+      "id": "st-immediate-reward",
+      "blocker": "通用",
+      "trigger": "努力后奖励太远,坚持不住",
+      "action": "每个子步骤完成立刻微庆祝,缩短奖励延迟",
+      "evidence": "延迟折扣:即时小颗粒高频反馈更有效",
+      "evidenceLevel": "强"
+    },
+    {
+      "id": "st-body-doubling",
+      "blocker": "通用",
+      "trigger": "独自学习难启动,有人陪才行",
+      "action": "发起AI陪伴:互报目标→静默共做→结束汇报",
+      "evidence": "远程body doubling有效(Eagle et al. 2024)",
+      "evidenceLevel": "中"
+    },
+    {
+      "id": "st-parking-lot",
+      "blocker": "通用",
+      "trigger": "杂念不断入侵,越赶越乱",
+      "action": "杂念一键记入停车场,计划化清除后返回",
+      "evidence": "计划化消除杂念(Masicampo & Baumeister 2011)",
+      "evidenceLevel": "中"
+    },
+    {
+      "id": "st-spaced-repetition",
+      "blocker": "通用",
+      "trigger": "学了就忘,复习没节奏",
+      "action": "按遗忘曲线排程,主动回忆式自测",
+      "evidence": "间隔重复与检验效应(元分析)",
+      "evidenceLevel": "强"
+    },
+    {
+      "id": "st-icnu",
+      "blocker": "通用",
+      "trigger": "常规激励全部失效",
+      "action": "可选开启:紧迫性挑战或新奇变体注入动机",
+      "evidence": "ICNU兴趣驱动框架(Dodson,社区经验)",
+      "evidenceLevel": "弱-社区经验"
+    }
+  ]
+}

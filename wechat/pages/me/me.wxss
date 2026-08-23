@@ -1,0 +1,27 @@
+/* pages/me/me.wxss — 「我的」页样式 */
+
+.server-tip {
+  margin: 4rpx 0 8rpx;
+  line-height: 1.7;
+}
+
+.warn-text {
+  color: #E8701A;
+  font-size: 24rpx;
+  margin-bottom: 12rpx;
+  line-height: 1.6;
+}
+
+.grow {
+  flex: 1;
+  margin-right: 24rpx;
+}
+
+.disclaimer {
+  margin-top: 12rpx;
+  line-height: 1.8;
+}
+
+.version-card {
+  padding: 24rpx 32rpx;
+}

@@ -1,0 +1,20 @@
+{
+  "description": "Kickoff 微信小程序骨架(多 Agent 学习引擎)",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "setting": {
+    "es6": false,
+    "enhance": false,
+    "postcss": true,
+    "minified": true,
+    "urlCheck": false,
+    "ignoreUploadUnusedFiles": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "3.3.4",
+  "appid": "touristappid",
+  "projectname": "kickoff-miniprogram",
+  "condition": {}
+}

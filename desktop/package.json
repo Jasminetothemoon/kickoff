@@ -1,0 +1,18 @@
+{
+  "name": "kickoff-desktop",
+  "version": "0.1.0",
+  "description": "Kickoff menubar companion — 常驻时间条 + 杂念停车场全局快捷键",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "icon": "node assets/make-icon.js",
+    "dist": "electron-builder --mac --win --linux",
+    "dist:mac": "electron-builder --mac"
+  },
+  "author": "Kickoff",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.2.0"
+  }
+}

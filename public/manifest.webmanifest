@@ -1,0 +1,14 @@
+{
+  "name": "Kickoff · 启学引擎",
+  "short_name": "Kickoff",
+  "description": "多 Agent 技能学习启动与坚持引擎 —— 把「想学」变成「在学」",
+  "start_url": "/today",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F7F8FB",
+  "theme_color": "#1E1B4B",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

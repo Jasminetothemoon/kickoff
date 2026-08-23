@@ -1,0 +1,118 @@
+/**
+ * app.wxss — 全局样式
+ * 色彩体系用 class 代替 CSS 变量:
+ *   deep    #1E1B4B 深靛(导航/标题)
+ *   indigo  #4F46E5 靛蓝(主按钮/主强调)
+ *   orange  #E8701A 暖橙(行动强调/计时)
+ *   teal    #0D948A 青绿(进度/成就)
+ * 卡片统一白底圆角。
+ */
+
+page {
+  background: #F4F4F8;
+  color: #1F2430;
+  font-size: 28rpx;
+  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+/* ===== 色彩 class ===== */
+.text-deep { color: #1E1B4B; }
+.text-indigo { color: #4F46E5; }
+.text-orange { color: #E8701A; }
+.text-teal { color: #0D948A; }
+.bg-deep { background-color: #1E1B4B; }
+.bg-indigo { background-color: #4F46E5; }
+.bg-orange { background-color: #E8701A; }
+.bg-teal { background-color: #0D948A; }
+
+/* ===== 通用布局 ===== */
+.container { padding: 8rpx 0 48rpx; }
+.center { text-align: center; }
+.row-between { display: flex; justify-content: space-between; align-items: center; }
+.muted { color: #6B7280; }
+.small-text { font-size: 24rpx; }
+.input-placeholder { color: #9CA3AF; }
+
+/* ===== 白底圆角卡片 ===== */
+.card {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  margin: 24rpx 32rpx;
+  box-shadow: 0 6rpx 24rpx rgba(30, 27, 75, 0.06);
+}
+.card-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1E1B4B;
+  margin-bottom: 8rpx;
+}
+.card-label {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #6B7280;
+  margin-bottom: 12rpx;
+}
+/* 卡片内直接子级按钮默认撑满(行内按钮组另设) */
+.card > button { width: 100%; }
+
+/* ===== 按钮:先重置默认样式,再按类型上色 ===== */
+button { margin: 0; padding: 0; box-sizing: border-box; }
+button::after { border: none; }
+
+.btn-primary {
+  background: #4F46E5;
+  color: #FFFFFF;
+  border-radius: 20rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+.btn-ghost {
+  background: #EEF2FF;
+  color: #4F46E5;
+  border-radius: 20rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+.btn-row { display: flex; margin-top: 24rpx; }
+.btn-row button {
+  flex: 1;
+  width: auto;
+  height: 84rpx;
+  line-height: 84rpx;
+}
+.btn-row button:first-child { margin-right: 16rpx; }
+
+/* ===== 输入框 ===== */
+.text-input {
+  background: #F4F4F8;
+  border-radius: 16rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  margin: 20rpx 0;
+  box-sizing: border-box;
+}
+
+/* ===== 进度条 ===== */
+.progress-track {
+  height: 16rpx;
+  background: #EFEDF6;
+  border-radius: 999rpx;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: #4F46E5;
+  border-radius: 999rpx;
+  transition: width 0.3s linear;
+}
+.progress-fill.orange { background: #E8701A; }
+.progress-fill.teal { background: #0D948A; }

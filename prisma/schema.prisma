@@ -1,0 +1,128 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// MVP 阶段单演示用户;上线后扩展认证
+model User {
+  id        String   @id @default("demo")
+  createdAt DateTime @default(now())
+  goals     Goal[]
+  profiles  Profile[]
+}
+
+model Goal {
+  id            String   @id @default(cuid())
+  userId        String
+  title         String
+  motivation    String   @default("")
+  weeks         Int      @default(12)
+  minutesPerDay Int      @default(25)
+  skillPackId   String   @default("python-da")
+  createdAt     DateTime @default(now())
+  user          User     @relation(fields: [userId], references: [id])
+  plans         Plan[]
+}
+
+// 周计划:days 为 DayPlan[] 的 JSON(见 src/lib/types.ts)
+model Plan {
+  id        String   @id @default(cuid())
+  goalId    String
+  week      Int
+  focus     String
+  days      String // JSON
+  createdAt DateTime @default(now())
+  goal      Goal     @relation(fields: [goalId], references: [id], onDelete: Cascade)
+
+  @@unique([goalId, week])
+}
+
+model CheckIn {
+  id            String   @id @default(cuid())
+  taskId        String
+  taskTitle     String   @default("")
+  granularity   Int      @default(2)
+  mood          String   @default("")
+  note          String   @default("")
+  delaySeconds  Int      @default(0)
+  startedAt     DateTime @default(now())
+  completedAt   DateTime?
+}
+
+// 双画像:learner 与 procrastination 为 JSON(见 src/lib/types.ts)
+model Profile {
+  id              String   @id @default(cuid())
+  userId          String
+  learner         String   @default("{}")
+  procrastination String   @default("{}")
+  settings        String   @default("{}") // 专注支持模式等账户级设置(FocusSupportSettings)
+  updatedAt       DateTime @updatedAt
+  user            User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId])
+}
+
+// 杂念停车场:计时冲刺中一键记下、稍后处理(Masicampo & Baumeister 计划化清除)
+model ParkedThought {
+  id        String   @id @default(cuid())
+  userId    String
+  text      String
+  createdAt DateTime @default(now())
+}
+
+// 自定义技能包:用户任意技能 + 自带资源(链接/教材/线下要点)生成的专属学习路线
+model CustomSkillPack {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  keywords  String   @default("") // 逗号分隔,用于目标匹配
+  pack      String   // SkillPack JSON(周模板,任务可含 link)
+  createdAt DateTime @default(now())
+}
+
+// 陪伴冲刺会话(AI Body Doubling):开场互报目标-静默共做-结束双问
+model FocusSession {
+  id         String    @id @default(cuid())
+  userId     String
+  goalText   String
+  minutes    Int
+  completed  Boolean   @default(false)
+  mood       String    @default("")
+  note       String    @default("")
+  startedAt  DateTime  @default(now())
+  finishedAt DateTime?
+}
+
+// Web Push 订阅(主动启动邀约通道)
+model PushSubscription {
+  id        String   @id @default(cuid())
+  userId    String
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now())
+}
+
+// 微信订阅消息授权记录(一次性订阅:每次授权可下发一条)
+model WechatReminder {
+  id           String   @id @default(cuid())
+  userId       String
+  code         String   // wx.login code(上线后由服务端换 openid)
+  templateId   String
+  consentedAt  DateTime @default(now())
+  sentAt       DateTime?
+}
+
+// 成就解锁记录(无羞耻成就系统:只庆祝"开始与回来",不做惩罚)
+model AchievementUnlock {
+  id         String   @id @default(cuid())
+  userId     String
+  key        String
+  unlockedAt DateTime @default(now())
+
+  @@unique([userId, key])
+}

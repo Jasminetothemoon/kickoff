@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:" />
+  <title>快速启动</title>
+  <link rel="stylesheet" href="quick.css" />
+</head>
+<body>
+  <header class="quick-top">
+    <span class="quick-badge">K</span>
+    <span class="quick-title">快速启动</span>
+    <span class="quick-hint-key">Shift+Cmd+J · Esc 关闭</span>
+  </header>
+  <main class="quick-body">
+    <div class="quick-kicker">今天的第一步</div>
+    <div id="quick-step" class="quick-step">加载中…</div>
+    <div id="quick-meta" class="quick-meta" role="status"></div>
+    <div class="quick-actions">
+      <button id="btn-start-today" class="btn btn-primary">现在开始(2 分钟)</button>
+      <button id="btn-focus-sprint" class="btn btn-ghost">🔥 开一场陪伴冲刺</button>
+    </div>
+  </main>
+  <script src="quick.js"></script>
+</body>
+</html>
