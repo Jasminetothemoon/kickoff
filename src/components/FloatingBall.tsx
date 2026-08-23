@@ -10,30 +10,36 @@ export default function FloatingBall({ mood }: { mood?: string | null }) {
   const [open, setOpen] = useState(false);
   return (
     <>
+      <style>{`
+        @keyframes kickoff-focus-cta{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+        @media(prefers-reduced-motion:reduce){.kickoff-focus-cta{animation:none!important}}
+      `}</style>
       <Link
         href="/focus"
         aria-label="陪伴冲刺"
         title="和 Pace 一起冲刺:一次只做一件事,他全程在场"
+        className="kickoff-focus-cta"
         style={{
           position: "fixed",
           right: "max(16px,calc(50vw - 224px))",
-          bottom: 158,
+          bottom: 152,
           zIndex: 25,
           display: "inline-flex",
           alignItems: "center",
-          gap: 4,
-          padding: "5px 11px",
+          gap: 7,
+          padding: "10px 18px",
           borderRadius: 999,
           background: "var(--teal)",
           color: "#fff",
-          fontSize: 10.5,
+          fontSize: 13.5,
           fontWeight: 700,
           letterSpacing: 0.5,
           textDecoration: "none",
-          boxShadow: "0 6px 16px rgba(13,148,136,.35)",
+          boxShadow: "0 6px 20px rgba(13,148,136,.45)",
+          animation: "kickoff-focus-cta 2.8s ease-in-out infinite",
         }}
       >
-        🟢 陪伴冲刺
+        🟢 陪伴冲刺 · 10 分钟
       </Link>
       <button className="fab" onClick={() => setOpen(true)} aria-label="打开学习小队对话">
         💬

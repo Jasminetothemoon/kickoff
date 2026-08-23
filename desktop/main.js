@@ -94,6 +94,17 @@ let sprintTimer = null;
 function serverBase() {
   return config.server.replace(/\/+$/, '');
 }
+
+// 设备 UID:持久化在 config,随请求头 x-kickoff-uid 携带——
+// 多用户底座按 cookie/header 识别用户;无稳定 UID 时每次请求都会被当成新访客(数据永远为空)
+const { randomUUID } = require('node:crypto');
+function ensureUid() {
+  if (!config.uid || typeof config.uid !== 'string' || config.uid.length < 8) {
+    config.uid = randomUUID();
+    saveConfig();
+  }
+  return config.uid;
+}
 async function api(pathname, { method = 'GET', body } = {}) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 8000);
@@ -101,7 +112,7 @@ async function api(pathname, { method = 'GET', body } = {}) {
     const res = await fetch(serverBase() + pathname, {
       method,
       signal: controller.signal,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'x-kickoff-uid': ensureUid() },
       body: body === undefined ? undefined : JSON.stringify(body),
     });
     const text = await res.text();
@@ -477,6 +488,14 @@ function buildTrayMenu() {
 // IPC(与 preload.js 的命名一一对应)
 // --------------------------------------------------------------------------
 function registerIpc() {
+  ipcMain.handle('kickoff:get-uid', () => ensureUid());
+  ipcMain.handle('kickoff:set-uid', (_e, uid) => {
+    if (typeof uid !== 'string' || uid.trim().length < 8) return false;
+    config.uid = uid.trim();
+    saveConfig();
+    refreshToday({ silent: true }).catch(() => {});
+    return true;
+  });
   ipcMain.handle(IPC.getState, () => ({
     server: config.server,
     today,

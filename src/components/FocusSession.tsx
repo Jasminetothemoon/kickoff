@@ -65,6 +65,7 @@ function localClosing(completed: boolean): string {
 }
 
 /** 白噪音句柄(纯代码棕噪音,无素材;AudioContext 在点击开关时才创建,iOS Safari 手势内解锁) */
+type AmbientKind = 'off' | 'rain' | 'wave' | 'drop';
 type NoiseHandle = { ctx: AudioContext; src: AudioBufferSourceNode; gain: GainNode };
 
 export default function FocusSession() {
@@ -78,7 +79,7 @@ export default function FocusSession() {
   const [submitting, setSubmitting] = useState(false);
   const [closing, setClosing] = useState("");
   const [today, setToday] = useState<TodayInfo | null>(null);
-  const [noiseOn, setNoiseOn] = useState(false);
+  const [ambient, setAmbient] = useState<AmbientKind>('off');
   const [checkinState, setCheckinState] = useState<"idle" | "sending" | "done" | "failed">("idle");
   const shownStep = useRef(0); // 已出现过的在场语档(按 PRESENCE_STEPS 下标推进)
   const noiseRef = useRef<NoiseHandle | null>(null);
@@ -87,8 +88,10 @@ export default function FocusSession() {
   const stopNoise = () => {
     const n = noiseRef.current;
     noiseRef.current = null;
-    setNoiseOn(false);
+    setAmbient('off');
     if (!n) return;
+    const dt = (n as NoiseHandle & { dropTimer?: number }).dropTimer;
+    if (dt) window.clearInterval(dt);
     try {
       const t = n.ctx.currentTime;
       n.gain.gain.cancelScheduledValues(t);
@@ -111,11 +114,9 @@ export default function FocusSession() {
     }
   };
 
-  const toggleNoise = () => {
-    if (noiseOn) {
-      stopNoise();
-      return;
-    }
+  const playAmbient = (kind: AmbientKind) => {
+    stopNoise();
+    if (kind === "off") return;
     try {
       const AC =
         window.AudioContext ??
@@ -123,7 +124,8 @@ export default function FocusSession() {
       if (!AC) return;
       const ctx = new AC(); // 在用户手势内创建(iOS Safari 要求)
       void ctx.resume().catch(() => undefined);
-      // 棕噪音:白噪声积分平滑,2 秒循环;音量低(≈0.055)只做氛围垫底
+
+      // —— 共同底床:低音量棕噪音(雨/浪的基础质感) ——
       const len = Math.floor(ctx.sampleRate * 2);
       const buffer = ctx.createBuffer(1, len, ctx.sampleRate);
       const ch = buffer.getChannelData(0);
@@ -138,15 +140,57 @@ export default function FocusSession() {
       src.loop = true;
       const gain = ctx.createGain();
       const t = ctx.currentTime;
+      const baseVol = kind === "rain" ? 0.07 : kind === "wave" ? 0.09 : 0.02;
       gain.gain.setValueAtTime(0.0001, t);
-      gain.gain.exponentialRampToValueAtTime(0.055, t + 0.6);
+      gain.gain.linearRampToValueAtTime(baseVol, t + 0.8);
+
+      if (kind === "rain") {
+        // 雨声:棕噪 + 低通 + 高频沙沙(两路滤波)
+        const lp = ctx.createBiquadFilter();
+        lp.type = "lowpass"; lp.frequency.value = 1400;
+        const hp = ctx.createBiquadFilter();
+        hp.type = "highpass"; hp.frequency.value = 400;
+        src.connect(hp); hp.connect(lp); lp.connect(gain);
+      } else if (kind === "wave") {
+        // 海浪:棕噪 + 0.09Hz 幅度 LFO(潮汐起伏)
+        const lfo = ctx.createOscillator();
+        lfo.frequency.value = 0.09;
+        const lfoGain = ctx.createGain();
+        lfoGain.gain.value = baseVol * 0.7;
+        lfo.connect(lfoGain); lfoGain.connect(gain.gain);
+        lfo.start();
+      }
       src.connect(gain);
       gain.connect(ctx.destination);
       src.start();
       noiseRef.current = { ctx, src, gain };
-      setNoiseOn(true);
+
+      // 水滴:定时触发正弦"叮"(指数衰减 + 音高下滑),叠加极轻底床
+      if (kind === "drop") {
+        const drop = () => {
+          const c = noiseRef.current?.ctx;
+          if (!c || noiseRef.current === null) return;
+          const osc = c.createOscillator();
+          const g = c.createGain();
+          const f = 800 + Math.random() * 1200;
+          const tt = c.currentTime;
+          osc.frequency.setValueAtTime(f, tt);
+          osc.frequency.exponentialRampToValueAtTime(f * 0.5, tt + 0.12);
+          g.gain.setValueAtTime(0.0001, tt);
+          g.gain.exponentialRampToValueAtTime(0.16, tt + 0.015);
+          g.gain.exponentialRampToValueAtTime(0.0001, tt + 0.35);
+          osc.connect(g); g.connect(c.destination);
+          osc.start(tt); osc.stop(tt + 0.4);
+        };
+        const iv = window.setInterval(() => {
+          if (noiseRef.current) drop();
+        }, 2600 + Math.random() * 2400);
+        // 存到 ref 以便停止
+        (noiseRef.current as NoiseHandle & { dropTimer?: number }).dropTimer = iv;
+      }
+      setAmbient(kind);
     } catch {
-      setNoiseOn(false); // 生成失败静默降级,冲刺照常
+      setAmbient('off'); // 生成失败静默降级,冲刺照常
     }
   };
 
@@ -504,16 +548,23 @@ export default function FocusSession() {
           )}
         </div>
 
-        <button
-          type="button"
-          className={"dur-chip" + (noiseOn ? " on" : "")}
-          aria-pressed={noiseOn}
-          aria-label="环境音开关(棕噪音)"
-          onClick={toggleNoise}
-          style={{ padding: "9px 18px", fontSize: 12 }}
+        <div
+          style={{ display: "flex", gap: 8, flexWrap: "wrap" }}
+          role="group"
+          aria-label="环境音选择"
         >
-          🌊 环境音 · {noiseOn ? "开" : "关"}
-        </button>
+            {([["rain", "🌧️ 雨声"], ["wave", "🌊 海浪"], ["drop", "💧 水滴"], ["off", "🔇 关"]] as const).map(([k, label]) => (
+              <button
+                key={k}
+                type="button"
+                className={"dur-chip" + (ambient === k ? " on" : "")}
+                aria-pressed={ambient === k}
+                onClick={() => playAmbient(k)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
 
         <button
           className="btn btn-ghost"

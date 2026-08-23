@@ -45,4 +45,8 @@ contextBridge.exposeInMainWorld('kickoff', {
 
   /** 快速启动小窗请求隐藏自己(仅 quick.html 使用) */
   requestHideQuick: () => ipcRenderer.send('kickoff:hide-quick'),
+
+  /** 设备 UID 配对(与网页账户同步数据) */
+  getUid: () => ipcRenderer.invoke('kickoff:get-uid'),
+  setUid: (uid) => ipcRenderer.invoke('kickoff:set-uid', uid)
 });

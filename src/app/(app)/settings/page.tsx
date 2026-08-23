@@ -129,6 +129,28 @@ export default function SettingsPage() {
       </div>
 
       <div className="card">
+        <span className="tag t-teal">设备配对 · 桌面伴侣/小程序</span>
+        <h3 style={{ margin: "10px 0 6px" }}>你的配对码</h3>
+        <div className="sub">在 Mac 桌面伴侣(菜单栏 → 设置)或微信小程序「我的」页粘贴此码,即可让该设备与当前网页账户同步数据。</div>
+        <div
+          className="intent"
+          style={{ marginTop: 10, fontFamily: "Menlo, monospace", fontSize: 11.5, wordBreak: "break-all", cursor: "pointer" }}
+          onClick={(e) => {
+            const code = (e.currentTarget.querySelector("span")?.textContent || "").trim();
+            if (code) {
+              navigator.clipboard?.writeText(code).catch(() => {});
+              (e.currentTarget.querySelector("small") as HTMLElement | null)?.remove();
+              const tag = document.createElement("small");
+              tag.textContent = " ✓ 已复制";
+              e.currentTarget.appendChild(tag);
+            }
+          }}
+        >
+          <span>{typeof window !== "undefined" ? (document.cookie.match(/kickoff_uid=([^;]+)/)?.[1] ?? "未获取到(刷新重试)") : ""}</span>
+        </div>
+      </div>
+
+<div className="card">
         <span className="tag t-orange">主动邀约 · Pace 会来找你</span>
         <h3 style={{ margin: "10px 0 6px" }}>浏览器通知</h3>
         <div className="sub">在你不打开 App 的时候,活跃时段的「启动邀约」也能到达(2 分钟第一步,直达计时器)。可随时关闭。</div>

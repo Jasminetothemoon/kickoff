@@ -49,6 +49,15 @@
     <main class="settings-body">
       <label class="settings-label" for="input-server">Kickoff Web 地址</label>
       <input id="input-server" type="url" placeholder="http://localhost:3000" spellcheck="false" />
+        <div style="margin-top:12px">
+          <div class="field-label">与网页配对(设备 UID)</div>
+          <input id="input-uid" class="input" placeholder="粘贴网页端「设置 → 设备配对码」" autocomplete="off" spellcheck="false" />
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button class="btn btn-primary" id="btn-save-uid">配对</button>
+            <button class="btn btn-ghost" id="btn-copy-uid">复制本机 UID</button>
+          </div>
+          <div id="uid-status" class="muted" style="font-size:11px;margin-top:6px"></div>
+        </div>
       <p class="settings-tip">桌面端从这里读取今日计划、打卡并写入停车场。</p>
       <div class="settings-actions">
         <button id="btn-save-server" class="btn btn-primary">保存</button>

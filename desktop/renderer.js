@@ -264,6 +264,7 @@
     viewSettings.hidden = !show;
     if (show) {
       $('input-server').value = state.server || 'http://localhost:3000';
+      if ($('input-uid')) $('input-uid').value = window.kickoff?.getUid?.() || '';
       setSettingsMsg('', '');
     }
   }
@@ -278,7 +279,19 @@
   $('btn-back').addEventListener('click', () => showSettings(false));
   $('btn-web').addEventListener('click', () => ko.openWeb());
 
-  $('btn-save-server').addEventListener('click', async () => {
+  $('btn-copy-uid') && $('btn-copy-uid').addEventListener('click', async () => {
+      const uid = window.kickoff?.getUid?.() || '';
+      try { await navigator.clipboard.writeText(uid); $('uid-status').textContent = '已复制本机 UID'; }
+      catch { $('uid-status').textContent = '本机 UID:' + uid; }
+    });
+    $('btn-save-uid') && $('btn-save-uid').addEventListener('click', async () => {
+      const v = ($('input-uid').value || '').trim();
+      if (v.length < 8) { $('uid-status').textContent = 'UID 至少 8 位'; return; }
+      const ok = await window.kickoff.setUid(v);
+      $('uid-status').textContent = ok ? '✓ 已配对,数据将与该网页账户同步' : '保存失败';
+      window.kickoff?.refreshToday?.();
+    });
+$('btn-save-server').addEventListener('click', async () => {
     const val = $('input-server').value.trim();
     setSettingsMsg('保存中…', '');
     const res = await ko.setConfig(val);
