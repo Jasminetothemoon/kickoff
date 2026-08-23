@@ -3,7 +3,7 @@
 // ⚠️ 正式上线前必须替换为 https 域名,并在微信公众平台后台配置为 request 合法域名,
 //    否则真机与线上环境无法访问(小程序生产环境强制要求 https + 已备案合法域名)。
 // 当前隧道地址(本机会话有效;重启隧道后需更新;上线时换正式 https 域名)
-var BASE_URL = 'https://asian-receiver-contemporary-protocol.trycloudflare.com';
+var BASE_URL = 'https://humanity-theme-copying-pixel.trycloudflare.com';
 // 微信订阅消息模板 ID:注册小程序后在「订阅消息」公共模板库申请,填到这里
 var REMINDER_TEMPLATE_ID = '';
 

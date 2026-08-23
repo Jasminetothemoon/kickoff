@@ -2,6 +2,7 @@
 // 「今天」:目标空态(向导 CTA)/ 启动卡 / 倒计时打卡 / 情绪检查 / Coach 周进度 / 拆解对话球
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { DecomposeResult, StartCard, TaskItem } from "@/lib/types";
+import AgentAvatar, { type AvatarAgent } from "@/components/AgentAvatar";
 import StartCardView from "@/components/StartCardView";
 import CountdownTimer from "@/components/CountdownTimer";
 import MoodCheck from "@/components/MoodCheck";
@@ -50,6 +51,14 @@ function greeting(): string {
   const slot = h < 6 ? "凌晨" : h < 11 ? "早晨" : h < 14 ? "午间" : h < 18 ? "下午" : h < 23 ? "晚间" : "深夜";
   return `${wd} · ${slot}学习时段`;
 }
+
+// 「你的小队」横条:四个 Agent 形象各带默认呼吸/浮动动效,主流程里各自负责一个环节
+const SQUAD: { agent: AvatarAgent; label: string }[] = [
+  { agent: "Coach", label: "Coach · 规划" },
+  { agent: "Spark", label: "Spark · 拆解" },
+  { agent: "Pace", label: "Pace · 陪伴" },
+  { agent: "Mirror", label: "Mirror · 复盘" },
+];
 
 export default function TodayPage() {
   const [loading, setLoading] = useState(true);
@@ -272,6 +281,47 @@ export default function TodayPage() {
         >
           ✦ 新建/导入目标
         </button>
+      </div>
+
+      {/* 你的小队:四个 Agent 一行亮相(形象自带呼吸浮动动效),对应主流程各环节 */}
+      <div
+        className="card fade-in"
+        style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 14px" }}
+        aria-label="你的小队:Coach 负责规划,Spark 负责拆解,Pace 负责陪伴,Mirror 负责复盘"
+      >
+        <span
+          style={{
+            flex: "none",
+            fontSize: 10.5,
+            fontWeight: 700,
+            color: "var(--muted)",
+            lineHeight: 1.35,
+            paddingRight: 8,
+            borderRight: "1px solid var(--line)",
+          }}
+        >
+          你的
+          <br />
+          小队
+        </span>
+        {SQUAD.map((m) => (
+          <div
+            key={m.agent}
+            style={{
+              flex: 1,
+              minWidth: 0,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 4,
+            }}
+          >
+            <AgentAvatar agent={m.agent} size={24} />
+            <span style={{ fontSize: 10, fontWeight: 600, color: "var(--muted)", whiteSpace: "nowrap" }}>
+              {m.label}
+            </span>
+          </div>
+        ))}
       </div>
 
       {!loading && (startedToday || streak > 0) && (

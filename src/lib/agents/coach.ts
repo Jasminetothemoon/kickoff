@@ -1,7 +1,7 @@
 // Coach 规划教练:以技能包周模板为骨架生成周-日-任务三级计划;首周「最低可持续」压载
 import { z } from "zod";
 import { fmtDate } from "../datetime";
-import { chatJSONWithFallback } from "../llm";
+import { chatJSONWithFallback, isMockLLM } from "../llm";
 import { getProfile } from "../profile";
 import { clampInt, llmCoachPlanSchema, toGranularity } from "../schemas";
 import { buildCoachPlanFromSkillPack, loadSkillPack, type SkillPack } from "../skillpack";
@@ -17,6 +17,8 @@ export interface CoachGoalInput {
   skillPackId: string;
   /** 可选:直接传入已匹配的技能包(目标→技能包智能匹配);缺省按 skillPackId 加载 */
   skillPack?: SkillPack;
+  /** 命中具体/自定义技能包时为 true:模板优先,跳过 LLM 重写 */
+  preferPack?: boolean;
 }
 
 const COACH_SYSTEM = [
@@ -27,6 +29,10 @@ const COACH_SYSTEM = [
   "3) 任务标题具体可执行、≤20 字;每天任务 1-3 个。",
   "4) 不需要输出任务 id 和日期(系统会规范化生成),只需 focus/days.tasks(title,minutes,granularity)。",
   "5) notes 给用户 2-4 条中文说明(必须包含首周压载原则)。",
+  "6)【骨架增强】用户消息含「技能包周大纲」时:",
+  "   - 每周 focus 必须沿用大纲原句(可加个性化后缀,不得改主题);",
+  "   - 任务必须继承大纲中该周的任务意图与顺序,做的是「改写到贴合用户目标」而非自创;禁止输出『练习1』『练习2』这类占位标题;",
+  "   - 允许为个别周增补 1 个贴合用户上下文(目标/动机/资源中的公司、岗位、工具)的任务,可微调分钟数,不得删除大纲关键节点。",
 ].join("\n");
 
 const COACH_SCHEMA_HINT =
@@ -45,6 +51,12 @@ export async function generatePlan(goal: CoachGoalInput): Promise<CoachPlan> {
     minutesPerDay: goal.minutesPerDay,
     startDate,
   });
+
+  if (isMockLLM()) {
+    // Mock 模式:模板即最终计划(离线可演示、确定性)
+    return fallback;
+  }
+  // 命中精选包(preferPack)时不压制模型:骨架已注入提示词,靠下方质量闸门保证不泛化
 
   let profileBlock = "(暂无画像:按新手默认,六型卡点均匀先验)";
   try {
@@ -72,7 +84,9 @@ export async function generatePlan(goal: CoachGoalInput): Promise<CoachPlan> {
     `开始日期:${fmtDate(startDate)}`,
     `weeks=${goal.weeks}`,
     "",
-    "技能包周大纲(以此为骨架,可改写表述但保持主题顺序):",
+    goal.preferPack
+      ? "精选技能包骨架(硬约束:focus 原句沿用;任务继承意图并改写到贴合我的目标;禁止占位标题):"
+      : "技能包周大纲(以此为骨架,可改写表述但保持主题顺序):",
     outline,
     "",
     `用户拖延画像(JSON):${profileBlock}`,
@@ -103,7 +117,11 @@ function normalizeLLMPlan(
     const fbWeek = fallback.weeks[w - 1];
     const llmWeek = data.weeks[w - 1];
     const isWeek1 = w === 1;
-    const focus = llmWeek?.focus?.trim() || fbWeek.focus;
+    // focus:命中精选包时以骨架为权威(模型只允许在后面追加个性化后缀)
+    const llmFocus = llmWeek?.focus?.trim() ?? "";
+    const focus = goal.preferPack
+      ? (llmFocus.startsWith(fbWeek.focus.slice(0, 6)) ? llmFocus : fbWeek.focus)
+      : (llmFocus || fbWeek.focus);
     const days: DayPlan[] = [];
     for (let d = 0; d < 7; d++) {
       // 日期一律采用模板生成的确定性日期(从今天起 7×week 天)
@@ -113,7 +131,14 @@ function normalizeLLMPlan(
         days.push({ date, tasks: fbWeek.days[d].tasks.map((t) => ({ ...t })) });
         continue;
       }
-      const source = llmWeek?.days?.[d]?.tasks ?? [];
+      let source = llmWeek?.days?.[d]?.tasks ?? [];
+      // 质量闸门:精选包模式下,泛化占位任务(练习1/任务1 等)整周回退精选内容
+      if (goal.preferPack && source.length > 0) {
+        const generic = source.filter(
+          (t) => typeof t?.title === "string" && /(^|[^年月日])(练习|任务|步骤)\s*\d/.test(t.title)
+        ).length;
+        if (generic > source.length / 2) source = [];
+      }
       const cap = 3;
       const tasks: TaskItem[] = [];
       for (let i = 0; i < Math.min(source.length, cap); i++) {

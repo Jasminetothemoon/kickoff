@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { WeekPlan } from "@/lib/types";
 import { WEEKDAY_CN, buildDemoWeek, fmtDate, fmtMD } from "@/components/data";
+import AgentAvatar from "@/components/AgentAvatar";
 import GoalWizard from "@/components/GoalWizard";
 
 // Monday-first 下标:1=周二 3=周四(与画像 lowDays=[2,4](0=周日)一致)
@@ -103,7 +104,11 @@ export default function PlanPage() {
             + 更换/导入目标
           </button>
         </div>
-        <h3>{week.focus}</h3>
+        {/* Coach(自带缓慢浮动)守在本周重点前:计划由它生成与自适应调整 */}
+        <h3 style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <AgentAvatar agent="Coach" size={26} />
+          {week.focus}
+        </h3>
         <div className="timebar">
           <div className="cap">
             <span>周进度</span>

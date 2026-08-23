@@ -159,6 +159,20 @@ export default function SettingsPage() {
                 body: JSON.stringify({ endpoint: j.endpoint, p256dh: j.keys?.p256dh, auth: j.keys?.auth }),
               });
               btn.textContent = "✓ 已开启 — 到点 Pace 会来敲门";
+              const testBtn = document.createElement("button");
+              testBtn.className = "btn btn-ghost";
+              testBtn.style.marginTop = "8px";
+              testBtn.textContent = "🔔 发送一条测试邀约(现在)";
+              testBtn.onclick = async () => {
+                testBtn.textContent = "发送中…";
+                try {
+                  const r = await fetch("/api/push/invite", { method: "POST" }).then((x) => x.json());
+                  testBtn.textContent = r?.sent > 0 ? "✓ 已发出 — 看一眼通知中心/锁屏" : "未发出:" + (r?.reason || "没有有效订阅");
+                } catch {
+                  testBtn.textContent = "发送失败(稍后再试)";
+                }
+              };
+              btn.after(testBtn);
             } catch {
               btn.textContent = "开启失败(需 HTTPS 或 localhost 环境)";
             }

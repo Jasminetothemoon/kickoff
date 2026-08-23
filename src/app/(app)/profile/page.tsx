@@ -4,6 +4,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { LearnerProfile, ProcrastinationProfile, ReviewResult } from "@/lib/types";
 import { DEMO_PROFILE, DEMO_REVIEW, postJson } from "@/components/data";
+import AgentAvatar from "@/components/AgentAvatar";
 import { showToast } from "@/components/Toast";
 
 type ProfileApi = { learner: LearnerProfile; procrastination: ProcrastinationProfile };
@@ -234,6 +235,8 @@ export default function ProfilePage() {
             >
               {ach.points}
             </b>
+            {/* Spark 小火箭:每一次「开始」都在给起飞值加燃料 */}
+            <AgentAvatar agent="Spark" size={18} />
             <span className="sub">起飞值 · 每一次开始都在积累</span>
           </div>
 
@@ -397,7 +400,11 @@ export default function ProfilePage() {
       {/* 本周复盘 · Mirror:按钮触发生成,渲染 summary / 错因徽章 / 已自动调整 */}
       <div className="card">
         <span className="tag t-teal">本周复盘 · Mirror</span>
-        <h3 style={{ marginTop: 6 }}>这周,你的大脑发生了什么</h3>
+        {/* Mirror(自带眨眼/闪光)持镜守在复盘标题旁 */}
+        <h3 style={{ marginTop: 6, display: "flex", alignItems: "center", gap: 8 }}>
+          <AgentAvatar agent="Mirror" size={26} />
+          这周,你的大脑发生了什么
+        </h3>
         <div className="sub mt6">基于本周的打卡、拆解与冲刺数据生成,带 ✓ 的都已核对过</div>
         <button
           className="btn btn-indigo mt10"

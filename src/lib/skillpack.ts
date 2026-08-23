@@ -274,6 +274,7 @@ const PACK_KEYWORDS: Record<string, string[]> = {
   "python-da": ["python", "数据分析", "pandas", "numpy", "爬虫", "机器学习入门"],
   "english-cet4": ["英语", "四级", "六级", "cet", "词汇", "单词", "听力"],
   "general-web": ["web", "前端", "html", "css", "javascript", "js", "react", "vue", "网页", "全栈"],
+  "job-hunting": ["求职", "简历", "面试", "投递", "外企", "大厂", "offer", "秋招", "春招", "跳槽", "找工作", "岗位"],
 };
 
 export interface PackMatch {

@@ -104,6 +104,11 @@ function parseJSONLoose(text: string): unknown {
   return JSON.parse(t) as unknown;
 }
 
+/** 当前是否运行于内置 Mock(无模型 Key)——Mock 模式下应直接用确定性模板,不走 LLM 归一化 */
+export function isMockLLM(): boolean {
+  return !process.env.OPENAI_API_KEY;
+}
+
 export function getLLM(): LLM {
   const key = process.env.OPENAI_API_KEY;
   if (key && key.trim().length > 0) {

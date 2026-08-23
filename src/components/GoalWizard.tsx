@@ -50,8 +50,9 @@ export default function GoalWizard({
       showToast("计划已生成 — 今天只需要迈出第一步 🚀");
       onCreated();
       onClose();
-    } catch {
-      showToast("创建失败,请稍后再试");
+    } catch (err) {
+      const msg = (err as { message?: string })?.message || "";
+      showToast(msg.includes("HTTP") ? `创建失败(${msg})— 服务在吗?刷新重试` : "创建失败,请稍后再试");
     } finally {
       setBusy(false);
     }

@@ -1,0 +1,67 @@
+{
+  "id": "job-hunting",
+  "name": "求职冲刺 · 产品/AI 数据岗",
+  "totalWeeks": 6,
+  "minutesPerDay": 30,
+  "weeks": [
+    {
+      "week": 1, "focus": "定稿简历与目标清单",
+      "dailyTemplates": [
+        {"title": "打开一个文档,写下目标岗位关键词(外企/大厂·PM/AI数据)", "minutes": 2, "granularity": 2},
+        {"title": "收集 3 个目标 JD,高亮重复出现的硬技能词", "minutes": 10, "granularity": 10},
+        {"title": "简历:把上一段经历改写成一条 STAR 结果句", "minutes": 10, "granularity": 10},
+        {"title": "简历:再改一条 STAR,动词开头+量化结果", "minutes": 10, "granularity": 10},
+        {"title": "建一张「投递追踪表」:公司/岗位/渠道/状态/下一步", "minutes": 5, "granularity": 5},
+        {"title": "对镜朗读一遍简历自我介绍(1 分钟版)", "minutes": 5, "granularity": 5}
+      ]
+    },
+    {
+      "week": 2, "focus": "疯狂投递第一波(量优先)",
+      "dailyTemplates": [
+        {"title": "投出第 1 份(别挑了,先投)", "minutes": 5, "granularity": 5},
+        {"title": "今日投 5 份:外企 2 + 大厂 3,逐条记入追踪表", "minutes": 25, "granularity": 15},
+        {"title": "今日投 5 份;给 1 份写定制开头三行", "minutes": 25, "granularity": 15},
+        {"title": "复盘本周投递:哪类 JD 回应快?调整名单", "minutes": 10, "granularity": 10},
+        {"title": "内推:找 1 位熟人发一条 30 字内推请求", "minutes": 5, "granularity": 5}
+      ]
+    },
+    {
+      "week": 3, "focus": "面试弹药库(产品向)",
+      "dailyTemplates": [
+        {"title": "写下一个最可能被问的「讲讲你自己」答案提纲", "minutes": 5, "granularity": 5},
+        {"title": "准备 2 个项目故事:各按 STAR 写 5 个要点", "minutes": 15, "granularity": 15},
+        {"title": "产品 sense:拆解一款你常用产品的 1 个功能(用户/场景/取舍)", "minutes": 15, "granularity": 15},
+        {"title": "准备 3 个「问面试官」的问题", "minutes": 5, "granularity": 5},
+        {"title": "录音回答一道产品题(5 分钟),回听找卡点", "minutes": 10, "granularity": 10}
+      ]
+    },
+    {
+      "week": 4, "focus": "面试弹药库(AI 数据向)",
+      "dailyTemplates": [
+        {"title": "默写一个 AI 项目的数据链路:采集→清洗→标注→评估", "minutes": 10, "granularity": 10},
+        {"title": "复习 3 个核心指标定义(精确率/召回率/AUC),各写一句大白话", "minutes": 10, "granularity": 10},
+        {"title": "准备 1 个「数据驱动决策」的案例(你做过的)", "minutes": 15, "granularity": 15},
+        {"title": "SQL 手写:一道 JOIN + 一道窗口函数,计时 15 分钟", "minutes": 15, "granularity": 15},
+        {"title": "看 1 篇目标公司技术博客,记 3 个关键词", "minutes": 10, "granularity": 10}
+      ]
+    },
+    {
+      "week": 5, "focus": "模拟面试与迭代",
+      "dailyTemplates": [
+        {"title": "找朋友/AI 做 1 场 30 分钟模拟面试(录音)", "minutes": 30, "granularity": 15},
+        {"title": "回听录音,写下 3 个改进点", "minutes": 10, "granularity": 10},
+        {"title": "针对最弱的一题,重写答案并背诵要点", "minutes": 15, "granularity": 15},
+        {"title": "英文面试(外企):自我介绍 1 分钟英文版练 3 遍", "minutes": 15, "granularity": 15}
+      ]
+    },
+    {
+      "week": 6, "focus": "冲刺与决策",
+      "dailyTemplates": [
+        {"title": "本周每日保持投递 3 份 + 跟进 3 个流程", "minutes": 20, "granularity": 15},
+        {"title": "复盘全部流程:转化漏斗哪一环最弱?", "minutes": 15, "granularity": 15},
+        {"title": "准备谈薪:写下目标区间与 3 条谈判筹码", "minutes": 10, "granularity": 10},
+        {"title": "给自己写一封信:这段冲刺你学到了什么", "minutes": 10, "granularity": 10}
+      ]
+    }
+  ]
+}

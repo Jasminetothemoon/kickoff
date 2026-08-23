@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { apiError, errorMessage, parseJSONBody, zodErrorMessage } from "@/lib/api";
 import { ensureDemoUser, prisma } from "@/lib/db";
+import { ensureScheduler } from "@/lib/push";
 
 export const dynamic = "force-dynamic";
 
@@ -21,6 +22,7 @@ export async function POST(request: Request) {
       update: { ...parsed.data, userId: user.id },
       create: { ...parsed.data, userId: user.id },
     });
+    ensureScheduler();
     return NextResponse.json({ ok: true });
   } catch (err) {
     return apiError(`订阅失败:${errorMessage(err)}`, 500);

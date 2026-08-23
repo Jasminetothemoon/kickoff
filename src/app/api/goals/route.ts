@@ -33,6 +33,7 @@ export async function POST(request: Request) {
       pack = m.pack;
       matched = m.matched;
     }
+    const preferPack = matched; // 精选内容优先;通用兜底才允许 LLM 即兴增强
     const goal = await prisma.goal.create({
       data: { userId: user.id, title, motivation, weeks, minutesPerDay, skillPackId: pack.id },
     });
@@ -45,6 +46,7 @@ export async function POST(request: Request) {
       motivation,
       skillPackId: goal.skillPackId,
       skillPack: pack,
+      preferPack,
     });
     // Plan 按周落库,days 序列化为 JSON 字符串;日期在生成时已从今天起排 7×week 天
     await prisma.plan.createMany({

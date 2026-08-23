@@ -12,6 +12,42 @@ type Phase = "run" | "paused" | "done";
 // 微复盘:打卡前的四个情绪选项(PRD P0-1)
 const REVIEW_MOODS = ["轻松", "勉强", "焦虑", "状态不错"] as const;
 
+// Pace 轻语:计时中每 45 秒轮换一条,淡入淡出(aria-live=polite)
+const PACE_WHISPERS = [
+  "我在呢,继续",
+  "呼吸,一次只做这一件事",
+  "杂念飘过就好,不用追",
+  "手别停,心放轻",
+  "过半了,稳住",
+  "节奏很好,就这样",
+  "累的话慢一点,慢也算数",
+  "快到了,我陪着你",
+  "此刻的你,已经在前进",
+  "最后一下,漂亮收尾",
+] as const;
+const WHISPER_INTERVAL = 45000; // 轻语轮换间隔
+
+// 计时器内新增动效:打卡成功时 Pace 庆祝弹跳;轻语气泡淡入淡出(keyframes 统一 kickoff- 前缀)
+const TIMER_AVATAR_STYLE = `
+@keyframes kickoff-pace-cheer {
+  0%, 100% { transform: translateY(0) scale(1); }
+  30% { transform: translateY(-9px) scale(1.1); }
+  55% { transform: translateY(1px) scale(0.95); }
+  75% { transform: translateY(-4px) scale(1.04); }
+}
+.kickoff-pace-cheer { animation: kickoff-pace-cheer 0.7s ease-in-out 1; }
+@keyframes kickoff-whisper {
+  0% { opacity: 0; transform: translateY(4px); }
+  8% { opacity: 1; transform: translateY(0); }
+  86% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(0); }
+}
+.kickoff-whisper { animation: kickoff-whisper 9s ease both; }
+@media (prefers-reduced-motion: reduce) {
+  .kickoff-pace-cheer, .kickoff-whisper { animation: none; }
+}
+`;
+
 export default function CountdownTimer({
   open,
   onClose,
@@ -37,6 +73,8 @@ export default function CountdownTimer({
   const [parking, setParking] = useState(false);
   const [reviewMood, setReviewMood] = useState<string | null>(null); // 微复盘情绪(打卡时覆盖外部 mood prop)
   const [reviewNote, setReviewNote] = useState(""); // 微复盘一句话(≤200,可选)
+  const [whisper, setWhisper] = useState(-1); // Pace 轻语下标(-1 = 不显示)
+  const [cheer, setCheer] = useState(false); // 打卡成功:Pace 庆祝弹跳
 
   // 每次打开:读本地设置冲刺时长,并后台拉账户设置修正;重置为 2 分钟倒计时
   useEffect(() => {
@@ -61,6 +99,9 @@ export default function CountdownTimer({
     setParkText("");
     setReviewMood(null);
     setReviewNote("");
+    setWhisper(-1);
+    setCheer(false);
+    setChecking(false); // 上一次打卡保留的「打卡中…」在此复位
     setRunId((n) => n + 1);
   }, [open]);
 
@@ -94,6 +135,17 @@ export default function CountdownTimer({
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
+
+  // Pace 轻语:计时进行中立即轻语第一条,之后每 45 秒轮换;暂停即停,继续时从「我在呢」重新开始
+  useEffect(() => {
+    if (!open || phase !== "run") return;
+    setWhisper(0);
+    const iv = setInterval(
+      () => setWhisper((n) => (n + 1) % PACE_WHISPERS.length),
+      WHISPER_INTERVAL,
+    );
+    return () => clearInterval(iv);
+  }, [open, phase, runId]);
 
   if (!open) return null;
 
@@ -153,20 +205,28 @@ export default function CountdownTimer({
     } catch {
       // API 不可用:本地庆祝,保持体验完整(微复盘信息随静默打卡一起丢弃)
     }
-    setChecking(false);
+    // 打卡成功:Pace 先弹跳庆祝一下(约 0.7s)再关计时器;期间按钮保持「打卡中…」防重复点击
+    setCheer(true);
     showToast(msg);
-    onClose();
-    onCheckedIn?.();
+    window.setTimeout(() => {
+      onClose();
+      onCheckedIn?.();
+    }, 700);
   };
 
   return (
     <div className="timer-screen" role="dialog" aria-modal="true" aria-label="专注倒计时">
-      <div className="pacechip" style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-        <AgentAvatar agent="Pace" size={18} />
-        Pace 正在陪你 · 专注会话
-      </div>
+      <style>{TIMER_AVATAR_STYLE}</style>
+      <div className="pacechip">Pace 正在陪你 · 专注会话</div>
 
       <div className="timer">
+        {/* Pace 放大到 34px,固定在倒计时圆环正上方;打卡成功瞬间做一次庆祝弹跳 */}
+        <span
+          className={cheer ? "kickoff-pace-cheer" : undefined}
+          style={{ marginBottom: -6, position: "relative", zIndex: 1 }}
+        >
+          <AgentAvatar agent="Pace" size={34} />
+        </span>
         <div
           className="ring"
           style={{ background: `conic-gradient(${ringColor} 0 ${donePct}%, #D9EEE9 ${donePct}% 100%)` }}
@@ -178,6 +238,29 @@ export default function CountdownTimer({
           </div>
         </div>
       </div>
+
+      {/* Pace 轻语:计时中每 45 秒轮换一条,淡入淡出;暂停/到点后不再展示 */}
+      {phase !== "done" && whisper >= 0 && (
+        <div
+          key={`w-${runId}-${whisper}`}
+          className="kickoff-whisper"
+          role="status"
+          aria-live="polite"
+          style={{
+            maxWidth: 320,
+            background: "rgba(255,255,255,.1)",
+            border: "1px solid rgba(255,255,255,.2)",
+            color: "#E7FBF6",
+            borderRadius: 999,
+            padding: "7px 16px",
+            fontSize: 12,
+            fontWeight: 600,
+            lineHeight: 1.5,
+          }}
+        >
+          {PACE_WHISPERS[whisper]}
+        </div>
+      )}
 
       <p className="sub">
         {phase === "done"
