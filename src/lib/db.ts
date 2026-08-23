@@ -1,12 +1,14 @@
 import { PrismaClient } from "@prisma/client";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import type { LearnerProfile, ProcrastinationProfile } from "./types";
 
 export const DEMO_USER_ID = "demo"; // 兼容遗留引用;真实 uid 见 currentUserId()
 
-/** 当前访问者 uid(middleware 已保证 cookie 存在;无 cookie 环境回退 demo) */
+/** 当前访问者 uid:① x-kickoff-uid 请求头(桌面伴侣/小程序) ② cookie(浏览器) ③ 回退 demo */
 export function currentUserId(): string {
   try {
+    const headerUid = headers().get("x-kickoff-uid");
+    if (headerUid && headerUid.length >= 8) return headerUid;
     return cookies().get("kickoff_uid")?.value || DEMO_USER_ID;
   } catch {
     return DEMO_USER_ID;
