@@ -63,3 +63,47 @@ export async function POST(request: Request) {
     return apiError(`创建目标失败:${errorMessage(err)}`, 500);
   }
 }
+
+// GET /api/goals:目标列表(含是否激活=最新创建);POST {goalId}:切换激活目标(重排 createdAt 置顶)
+export async function GET() {
+  try {
+    const user = await ensureDemoUser();
+    const goals = await prisma.goal.findMany({
+      where: { userId: user.id },
+      orderBy: { createdAt: "desc" },
+      select: { id: true, title: true, createdAt: true, weeks: true, minutesPerDay: true },
+    });
+    return NextResponse.json({
+      goals: goals.map((g, i) => ({
+        id: g.id,
+        title: g.title,
+        weeks: g.weeks,
+        minutesPerDay: g.minutesPerDay,
+        active: i === 0,
+        createdAt: g.createdAt.toISOString(),
+      })),
+    });
+  } catch (err) {
+    return apiError(`读取目标失败:${errorMessage(err)}`, 500);
+  }
+}
+
+const switchSchema = z.object({ goalId: z.string().min(1) });
+
+export async function PATCH(request: Request) {
+  try {
+    const parsed = switchSchema.safeParse(await parseJSONBody(request));
+    if (!parsed.success) return apiError(`参数不合法:${zodErrorMessage(parsed.error)}`, 400);
+    const user = await ensureDemoUser();
+    const goal = await prisma.goal.findFirst({ where: { id: parsed.data.goalId, userId: user.id } });
+    if (!goal) return apiError("目标不存在", 404);
+    // 切换激活 = 把该目标 createdAt 置为最新(findFirst 按 createdAt desc 取激活)
+    await prisma.goal.update({
+      where: { id: goal.id },
+      data: { createdAt: new Date(Date.now() + Math.floor(Math.random() * 1000)) },
+    });
+    return NextResponse.json({ ok: true, activated: goal.id });
+  } catch (err) {
+    return apiError(`切换目标失败:${errorMessage(err)}`, 500);
+  }
+}

@@ -11,7 +11,7 @@ export default function RegisterSW() {
     replayOutbox();
     const onOnline = () => {
       replayOutbox().then((n) => {
-        if (n > 0) console.log(`[kickoff] 离线队列已同步 ${n} 条`);
+        if (n > 0 && process.env.NODE_ENV !== "production") console.log(`[kickoff] 离线队列已同步 ${n} 条`);
       });
     };
     window.addEventListener("online", onOnline);

@@ -262,6 +262,9 @@
   function showSettings(show) {
     viewMain.hidden = show;
     viewSettings.hidden = !show;
+    if (show && $('input-uid')) {
+      window.kickoff?.getUid?.().then((uid) => { $('input-uid').value = uid || ''; }).catch(() => {});
+    }
     if (show) {
       $('input-server').value = state.server || 'http://localhost:3000';
       if ($('input-uid')) $('input-uid').value = window.kickoff?.getUid?.() || '';

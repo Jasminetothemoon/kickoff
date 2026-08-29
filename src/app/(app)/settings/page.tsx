@@ -128,6 +128,8 @@ export default function SettingsPage() {
         </div>
       </div>
 
+      <GoalsCard />
+
       <div className="card">
         <span className="tag t-teal">设备配对 · 桌面伴侣/小程序</span>
         <h3 style={{ margin: "10px 0 6px" }}>你的配对码</h3>
@@ -220,5 +222,60 @@ export default function SettingsPage() {
         </div>
       </div>
     </>
+  );
+}
+
+
+// 目标管理:列表 + 切换激活(数据源与「今天」页一致:最新 createdAt 即激活)
+function GoalsCard() {
+  const [goals, setGoals] = useState<{ id: string; title: string; active: boolean }[] | null>(null);
+  const load = () =>
+    fetch("/api/goals")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => setGoals(d?.goals ?? null))
+      .catch(() => setGoals(null));
+  useEffect(() => {
+    load();
+  }, []);
+  const activate = async (id: string) => {
+    try {
+      await fetch("/api/goals", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ goalId: id }),
+      });
+      setGoals((g) => (g ? g.map((x) => ({ ...x, active: x.id === id })) : g));
+      showToast("已切换激活目标 — 「今天」页即刻生效");
+    } catch {
+      showToast("切换失败,请重试");
+    }
+  };
+  if (!goals) return null;
+  return (
+    <div className="card">
+      <span className="tag t-indigo">目标管理</span>
+      <h3 style={{ margin: "10px 0 6px" }}>我的学习目标</h3>
+      {goals.length === 0 && <div className="sub">还没有目标 — 去「今天」页创建第一个。</div>}
+      {goals.map((g) => (
+        <div
+          key={g.id}
+          style={{
+            display: "flex", justifyContent: "space-between", alignItems: "center",
+            padding: "8px 0", borderBottom: "1px dashed var(--line)",
+          }}
+        >
+          <span style={{ fontSize: 13, color: "var(--ink)" }}>
+            {g.active ? "🟢 " : "· "}{g.title}
+          </span>
+          {g.active ? (
+            <span className="tag t-teal">当前</span>
+          ) : (
+            <button className="btn btn-ghost" style={{ padding: "4px 10px" }} onClick={() => void activate(g.id)}>
+              切换到此
+            </button>
+          )}
+        </div>
+      ))}
+    </div>
   );
 }

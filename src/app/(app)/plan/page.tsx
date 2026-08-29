@@ -2,7 +2,8 @@
 // 「计划」:本周 focus + 7 天任务(打勾切换为本地状态,低谷日标注「已减载」)
 import { useCallback, useEffect, useState } from "react";
 import type { WeekPlan } from "@/lib/types";
-import { WEEKDAY_CN, buildDemoWeek, fmtDate, fmtMD } from "@/components/data";
+import { WEEKDAY_CN, buildDemoWeek, fmtDate, fmtMD, postJson } from "@/components/data";
+import { showToast } from "@/components/Toast";
 import AgentAvatar from "@/components/AgentAvatar";
 import GoalWizard from "@/components/GoalWizard";
 
@@ -34,15 +35,39 @@ export default function PlanPage() {
     loadPlan();
   }, [loadPlan]);
 
-  const toggleTask = (dayIdx: number, taskId: string) => {
+  const toggleTask = async (dayIdx: number, taskId: string) => {
+    const day = week.days[dayIdx];
+    const task = day?.tasks.find((t) => t.id === taskId);
+    if (!task) return;
+    const nextDone = !task.done;
+    // 乐观更新 UI
     setWeek((w) => ({
       ...w,
       days: w.days.map((d, i) =>
         i === dayIdx
-          ? { ...d, tasks: d.tasks.map((t) => (t.id === taskId ? { ...t, done: !t.done } : t)) }
+          ? { ...d, tasks: d.tasks.map((t) => (t.id === taskId ? { ...t, done: nextDone } : t)) }
           : d,
       ),
     }));
+    if (nextDone) {
+      // 勾选=真实打卡:进画像/成就/重规划闭环(幂等由服务端保证)
+      try {
+        const res = await postJson<{ celebration?: string; duplicate?: boolean; newAchievements?: { icon: string; title: string }[] }>("/api/checkins", {
+          taskId,
+          taskTitle: task.title,
+          granularity: task.granularity,
+        });
+        if (!res?.duplicate && res?.celebration) showToast(res.celebration);
+        if (Array.isArray(res?.newAchievements)) {
+          res.newAchievements.forEach((a: { icon: string; title: string }) => showToast(`🎉 解锁成就 ${a.icon} ${a.title}`));
+        }
+      } catch {
+        showToast("打卡未同步(网络)— 稍后会自动重试");
+      }
+    } else {
+      // 取消勾选:仅本地状态(不支持撤销打卡,保持画像数据真实)
+      showToast("已取消勾选(今日打卡记录保留 — 画像不回滚)");
+    }
   };
 
   const done = week.days.reduce((n, d) => n + d.tasks.filter((t) => t.done).length, 0);
@@ -146,7 +171,7 @@ export default function PlanPage() {
                   role="button"
                   tabIndex={0}
                   aria-pressed={t.done}
-                  onClick={() => toggleTask(i, t.id)}
+                  onClick={() => void toggleTask(i, t.id)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") toggleTask(i, t.id);
                   }}

@@ -34,6 +34,25 @@ export async function POST(request: Request) {
     // 粒度:body 优先,其次任务自带档,兜底 2
     const granularity = toGranularity(parsed.data.granularity ?? ref?.task.granularity ?? 2);
 
+    // 幂等防护:同一任务当日只记一次(重复点击/离线重放/双端并发都安全)
+    const dayStart = new Date(new Date().setHours(0, 0, 0, 0));
+    const dup = await prisma.checkIn.findFirst({
+      where: { taskId, startedAt: { gte: dayStart } },
+      select: { id: true },
+    });
+    if (dup) {
+      const ach = await evaluateAchievements(user.id).catch(() => null);
+      return NextResponse.json({
+        ok: true,
+        celebration: "这一项今天已经打卡过啦 — 画像不变,去开启下一个 2 分钟吧。",
+        adjustments: [],
+        duplicate: true,
+        ...(ach && ach.newly.length > 0
+          ? { newAchievements: ach.newly.map((a) => ({ key: a.key, title: a.title, icon: a.icon })) }
+          : {}),
+      });
+    }
+
     // startedAt = 实际开始时刻(现在回推延迟);打卡即完成
     await prisma.checkIn.create({
       data: {

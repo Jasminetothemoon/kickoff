@@ -55,31 +55,51 @@ class OpenAICompatibleLLM implements LLM {
   ) {}
 
   async chatJSON<T>(system: string, user: string, schemaHint: string): Promise<T> {
-    const res = await fetch(`${this.baseUrl}/chat/completions`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.apiKey}`,
-      },
-      body: JSON.stringify({
-        model: this.model,
-        response_format: { type: "json_object" },
-        messages: [
-          { role: "system", content: `${system}\n\n输出严格 JSON(不要 markdown 代码块):${schemaHint}` },
-          { role: "user", content: user },
-        ],
-      }),
-      signal: AbortSignal.timeout(20_000),
-    });
-    if (!res.ok) {
-      throw new Error(`LLM HTTP ${res.status}:${(await res.text()).slice(0, 200)}`);
+    // 网络抖动/超时快速重试一次(指数外避 800ms);429/5xx 同样重试
+    let lastErr: unknown;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      if (attempt > 0) await new Promise((r) => setTimeout(r, 800));
+      try {
+        const res = await fetch(`${this.baseUrl}/chat/completions`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${this.apiKey}`,
+          },
+          body: JSON.stringify({
+            model: this.model,
+            response_format: { type: "json_object" },
+            messages: [
+              { role: "system", content: `${system}\n\n输出严格 JSON(不要 markdown 代码块):${schemaHint}` },
+              { role: "user", content: user },
+            ],
+          }),
+          signal: AbortSignal.timeout(20_000),
+        });
+        if (!res.ok) {
+          const status = res.status;
+          const detail = (await res.text()).slice(0, 200);
+          if ((status === 429 || status >= 500) && attempt === 0) {
+            lastErr = new Error(`LLM HTTP ${status}:${detail}`);
+            continue;
+          }
+          throw new Error(`LLM HTTP ${status}:${detail}`);
+        }
+        const data: unknown = await res.json();
+        const content = extractContent(data);
+        if (typeof content !== "string" || content.length === 0) {
+          throw new Error("LLM 返回内容为空");
+        }
+        return parseJSONLoose(content) as T;
+      } catch (err) {
+        lastErr = err;
+        const msg = err instanceof Error ? err.message : String(err);
+        const retriable = msg.includes("TimeoutError") || msg.includes("fetch failed") || msg.includes("ECONN");
+        if (retriable && attempt === 0) continue;
+        throw err;
+      }
     }
-    const data: unknown = await res.json();
-    const content = extractContent(data);
-    if (typeof content !== "string" || content.length === 0) {
-      throw new Error("LLM 返回内容为空");
-    }
-    return parseJSONLoose(content) as T;
+    throw lastErr instanceof Error ? lastErr : new Error(String(lastErr));
   }
 }
 
